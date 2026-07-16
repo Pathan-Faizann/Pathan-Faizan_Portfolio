@@ -8,7 +8,7 @@ interface ParallaxImageProps {
   id: string;
   src: string;
   alt: string;
-  content?: "about" | "statement" | "manifesto";
+  content?: "about" | "statement" | "manifesto" | "projects";
   className: string;
   scale: MotionValue<number>;
   x: MotionValue<number>;
@@ -17,6 +17,24 @@ interface ParallaxImageProps {
 }
 
 function EditorialTextCard({ content }: Pick<ParallaxImageProps, "content">) {
+  if (content === "projects") {
+    return (
+      <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-[radial-gradient(ellipse_at_center,#171717_0%,#0a0a0a_42%,#050505_100%)] px-[clamp(1rem,2vw,2.5rem)] text-[#ECECEC] select-none">
+        <div className="relative z-10 flex flex-col items-center text-center">
+          <h2 className="font-display text-[clamp(2.1rem,6.25vw,4.5rem)] font-black uppercase leading-[0.82] tracking-normal">
+            PROJECTS
+          </h2>
+          <p className="mt-[clamp(0.75rem,1.4vw,1.5rem)] font-mono text-[clamp(0.5rem,0.65vw,0.72rem)] uppercase tracking-[0.32em] text-[#ECECEC]/40">
+            Selected Works
+          </p>
+          <p className="mt-2 font-mono text-[clamp(0.42rem,0.5vw,0.58rem)] uppercase tracking-[0.2em] text-[#ECECEC]/30">
+            Curated Digital Experiences
+          </p>
+        </div>
+      </div>
+    );
+  }
+
   if (content === "about") {
     return (
       <div className="flex h-full w-full items-start text-[#ECECEC] select-none">

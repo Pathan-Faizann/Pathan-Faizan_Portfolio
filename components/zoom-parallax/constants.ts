@@ -4,11 +4,12 @@ export const PARALLAX_IMAGES: ParallaxImageConfig[] = [
   {
     id: "center",
     src: "/architecture.png",
-    alt: "Brutalist Architecture Detail - Dominant Center",
-    className: "absolute z-20 overflow-hidden border border-white/10 shadow-2xl transition-shadow duration-700 hover:shadow-white/5 " +
-               "w-[34vw] h-[28vh] left-[33vw] top-[36vh] " +
-               "md:w-[28vw] md:h-[36vh] md:left-[36vw] md:top-[32vh] " +
-               "lg:w-[22vw] lg:h-[40vh] lg:left-[39vw] lg:top-[30vh]",
+    alt: "Projects - Selected Works",
+    content: "projects",
+    className: "absolute z-20 " +
+               "w-[60vw] aspect-[16/10] left-[20vw] top-[36vh] " +
+               "md:w-[28vw] md:left-[36vw] md:top-[32vh] " +
+               "lg:w-[22vw] lg:left-[39vw] lg:top-[30vh]",
     scaleRange: [1, 4.8], // Scale up significantly to fill the viewport
     xRange: [0, 0],       // Remains centered
     yRange: [0, 0],       // Remains centered

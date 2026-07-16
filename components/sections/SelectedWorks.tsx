@@ -73,11 +73,10 @@ export default function SelectedWorks() {
         <div className="w-[100vw] h-screen flex flex-col justify-center items-center px-6 md:px-16 flex-shrink-0 bg-[#050505] relative">
           <div className="max-w-7xl w-full">
             <span className="text-xs font-mono uppercase tracking-[0.3em] text-[#888888] block mb-4">
-              02 / CASE STUDIES
+              SELECTED WORKS / CASE STUDIES
             </span>
-            <h2 className="font-display text-5xl md:text-8xl font-black tracking-tighter uppercase leading-[0.9] text-[#f5f5f5]">
-              SELECTED <br />
-              <span className="text-[#888888]">WORKS.</span>
+            <h2 className="font-display text-5xl md:text-8xl font-black tracking-normal uppercase leading-[0.82] text-[#f5f5f5]">
+              PROJECTS
             </h2>
           </div>
         </div>

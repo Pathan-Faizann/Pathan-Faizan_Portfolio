@@ -6,7 +6,7 @@ import Navbar from "@/components/layout/Navbar";
 import Hero, { HeroHandle } from "@/components/sections/Hero";
 import ZoomParallax from "@/components/zoom-parallax/ZoomParallax";
 import Footer from "@/components/layout/Footer";
-import Philosophy from "@/components/sections/Philosophy";
+// import Philosophy from "@/components/sections/Philosophy";
 import SelectedWorks from "@/components/sections/SelectedWorks";
 import Expertise from "@/components/sections/Expertise";
 
@@ -48,7 +48,7 @@ export default function Home() {
         <main className="flex-1 w-full">
           <Hero ref={heroRef} titleRef={heroTitleRef} />
           <ZoomParallax />
-          <Philosophy/>
+          {/* <Philosophy /> */}
           <SelectedWorks/>
           <Expertise/>
         </main>

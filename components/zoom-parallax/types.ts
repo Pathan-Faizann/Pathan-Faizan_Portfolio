@@ -2,7 +2,7 @@ export interface ParallaxImageConfig {
   id: string;
   src: string;
   alt: string;
-  content?: "about" | "statement" | "manifesto";
+  content?: "about" | "statement" | "manifesto" | "projects";
   /**
    * Tailwind classes to lay out the image's container wrapper.
    * Defines default absolute positioning (top/left/right/bottom), z-index,
