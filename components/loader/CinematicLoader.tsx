@@ -1,210 +1,204 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
+import { flushSync } from "react-dom";
 import { gsap } from "@/lib/gsap";
-import { useSmoothScroll } from "../layout/SmoothScroll";
+import { useSmoothScroll } from "@/components/layout/SmoothScroll";
+import WaterFillText, { WaterFillTextHandle } from "./WaterFillText";
+import {
+  createFloatingClone,
+  measureElement,
+  type FloatingClone,
+} from "@/animations/sharedElementTransition";
+import {
+  FILL_HOLD,
+  MORPH_DURATION,
+  CURTAIN_DURATION,
+  CURTAIN_OFFSET,
+  EASE_PREMIUM,
+  EASE_CURTAIN,
+} from "@/animations/constants";
 
 interface CinematicLoaderProps {
+  heroTitleRef: React.RefObject<HTMLHeadingElement | null>;
   onComplete: () => void;
 }
 
-export default function CinematicLoader({ onComplete }: CinematicLoaderProps) {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const pathRef = useRef<SVGPathElement>(null);
-  const textFillRef = useRef<SVGTextElement>(null);
+export default function CinematicLoader({
+  heroTitleRef,
+  onComplete,
+}: CinematicLoaderProps) {
+  const curtainRef = useRef<HTMLDivElement>(null);
+  const textShellRef = useRef<HTMLDivElement>(null);
+  const waterFillRef = useRef<WaterFillTextHandle>(null);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
   const { unlockScroll } = useSmoothScroll();
-  
-  const [isFilled, setIsFilled] = useState(false);
-  const [hasReducedMotion, setHasReducedMotion] = useState(false);
-
-  // Animation values using refs for 60fps direct DOM manipulation
-  const currentProgressRef = useRef(0);
-  const phaseRef = useRef(0);
 
   useEffect(() => {
-    // Check for prefers-reduced-motion media query
-    const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
-    setHasReducedMotion(mediaQuery.matches);
-
-    if (mediaQuery.matches) {
-      // Reduced motion flow: skip water animation, show white immediately, exit fast
-      setIsFilled(true);
-      const exitTl = gsap.timeline({
-        delay: 0.8,
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    if (mq.matches) {
+      if (heroTitleRef.current) {
+        heroTitleRef.current.style.visibility = "visible";
+      }
+      gsap.to(curtainRef.current, {
+        yPercent: -100,
+        duration: 0.6,
+        ease: EASE_CURTAIN,
         onComplete: () => {
           unlockScroll();
           onComplete();
-        }
+        },
       });
-
-      exitTl.to(containerRef.current, {
-        yPercent: -100,
-        duration: 0.8,
-        ease: "power2.inOut",
-      });
-
-      exitTl.to(".homepage-content", {
-        filter: "blur(0px)",
-        clearProps: "filter",
-        duration: 0.3,
-        ease: "power2.out",
-      }, "-=0.15");
-
       return;
     }
 
-    // Standard water fill animation timeline
-    const animObj = { progress: 0 };
-    const fillTimeline = gsap.timeline({
-      onComplete: () => {
-        // Step 3: Hold white text, then slide curtain up
-        setIsFilled(true);
-        
-        // Wait 0.5s before triggering exit shutter
-        gsap.delayedCall(0.5, () => {
-          const exitTl = gsap.timeline({
-            onComplete: () => {
-              unlockScroll();
-              onComplete();
-            }
-          });
+    const waterFill = waterFillRef.current;
+    if (!waterFill) return;
 
-          // Exit duration: 1.2 seconds, Ease: power4.inOut, no bounce
-          exitTl.to(containerRef.current, {
-            yPercent: -100,
-            duration: 1.2,
-            ease: "power4.inOut",
-          });
+    let floatingClone: FloatingClone | null = null;
+    let cancelled = false;
 
-          // Homepage blur reduction starts in the last 15% (0.18s) of the exit animation
-          exitTl.to(
-            ".homepage-content",
-            {
-              filter: "blur(0px)",
-              clearProps: "filter",
-              duration: 0.4,
-              ease: "power2.out",
-            },
-            "-=0.25"
-          );
-        });
-      }
-    });
-
-    // Step 1 & 2: Delay 0.5s, Fill duration 2.5s, Ease: easeInOut
-    fillTimeline.to(animObj, {
-      progress: 1,
-      duration: 4.5,
-      delay: 0.5,
-      ease: "power2.inOut",
-      onUpdate: () => {
-        currentProgressRef.current = animObj.progress;
-      }
-    });
-
-    // Wave drawing loop using requestAnimationFrame
-    let rafId: number;
-    const animateWave = () => {
-      const path = pathRef.current;
-      if (!path) return;
-
-      const progress = currentProgressRef.current;
-      phaseRef.current += 0.04; // Calm horizontal movement speed
-
-      // SVG dimensions are 1200 x 300
-      // Water level rises from bottom (260px) to top (40px)
-      const startY = 260;
-      const endY = 40;
-      const waterY = startY - progress * (startY - endY);
-
-      // Damp amplitude as progress reaches the top (0 at complete)
-      const baseAmplitude = 12;
-      const amplitude = (1 - progress) * baseAmplitude;
-
-      const points: string[] = [];
-      const steps = 30;
-      const segmentWidth = 1200 / steps;
-
-      for (let i = 0; i <= steps; i++) {
-        const x = i * segmentWidth;
-        // Dual sine components for a natural fluid look
-        const sineVal = Math.sin(x * 0.007 + phaseRef.current);
-        const cosVal = Math.cos(x * 0.015 - phaseRef.current * 0.8);
-        const y = waterY + (sineVal * 1.0 + cosVal * 0.4) * amplitude;
-        points.push(`${x},${y}`);
-      }
-
-      // Construct SVG path string (enclosing the bottom area)
-      const pathD = `M 0 300 L 0 ${points[0].split(",")[1]} ` +
-        points.map((p) => `L ${p}`).join(" ") +
-        ` L 1200 300 Z`;
-
-      path.setAttribute("d", pathD);
-
-      rafId = requestAnimationFrame(animateWave);
+    const cleanup = () => {
+      timelineRef.current?.kill();
+      timelineRef.current = null;
+      floatingClone?.destroy();
+      floatingClone = null;
     };
 
-    rafId = requestAnimationFrame(animateWave);
+    (async () => {
+      await waterFill.startFill();
+      if (cancelled) return;
+
+      await new Promise<void>((res) => gsap.delayedCall(FILL_HOLD, res));
+      if (cancelled) return;
+
+      const loaderEl = waterFill.element;
+      const heroEl = heroTitleRef.current;
+
+      if (!loaderEl || !heroEl) {
+        if (heroEl) heroEl.style.visibility = "visible";
+        gsap.to(curtainRef.current, {
+          yPercent: -100,
+          duration: 0.8,
+          ease: EASE_CURTAIN,
+          onComplete: () => {
+            unlockScroll();
+            onComplete();
+          },
+        });
+        return;
+      }
+
+      // Ensure solid white letterforms are in the DOM before cloning
+      flushSync(() => {
+        waterFill.finalizeFill();
+      });
+
+      await new Promise<void>((res) =>
+        requestAnimationFrame(() => requestAnimationFrame(() => res()))
+      );
+      if (cancelled) return;
+
+      window.scrollTo(0, 0);
+
+      const fromRect = measureElement(loaderEl);
+      const toRect = measureElement(heroEl);
+
+      if (fromRect.width === 0 || toRect.width === 0) {
+        heroEl.style.visibility = "visible";
+        gsap.to(curtainRef.current, {
+          yPercent: -100,
+          duration: 0.8,
+          ease: EASE_CURTAIN,
+          onComplete: () => {
+            unlockScroll();
+            onComplete();
+          },
+        });
+        return;
+      }
+
+      // Clone BEFORE hiding the source — cloneNode copies inline visibility
+      floatingClone = createFloatingClone(loaderEl);
+
+      loaderEl.style.visibility = "hidden";
+      if (textShellRef.current) {
+        textShellRef.current.style.visibility = "hidden";
+      }
+
+      const transform = {
+        x:
+          toRect.left +
+          toRect.width / 2 -
+          (fromRect.left + fromRect.width / 2),
+        y:
+          toRect.top +
+          toRect.height / 2 -
+          (fromRect.top + fromRect.height / 2),
+        scaleX: toRect.width / fromRect.width,
+        scaleY: toRect.height / fromRect.height,
+      };
+
+      const tl = gsap.timeline({
+        onComplete: () => {
+          heroEl.style.visibility = "visible";
+          cleanup();
+          unlockScroll();
+          onComplete();
+        },
+      });
+
+      timelineRef.current = tl;
+
+      tl.to(
+        floatingClone.node,
+        {
+          x: transform.x,
+          y: transform.y,
+          scaleX: transform.scaleX,
+          scaleY: transform.scaleY,
+          duration: MORPH_DURATION,
+          ease: EASE_PREMIUM,
+          force3D: true,
+        },
+        0
+      );
+
+      tl.to(
+        curtainRef.current,
+        {
+          yPercent: -100,
+          duration: CURTAIN_DURATION,
+          ease: EASE_CURTAIN,
+        },
+        CURTAIN_OFFSET
+      );
+    })();
 
     return () => {
-      cancelAnimationFrame(rafId);
-      fillTimeline.kill();
+      cancelled = true;
+      cleanup();
     };
-  }, [onComplete, unlockScroll]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <div
-      ref={containerRef}
-      className="fixed inset-0 z-9999 flex flex-col items-center justify-center bg-[#050505] select-none"
-    >
-      <div className="w-full max-w-[90vw] px-4 md:px-0">
-        <svg
-          viewBox="0 0 1200 300"
-          width="100%"
-          height="100%"
-          className="w-full h-auto select-none pointer-events-none"
-        >
-          <defs>
-            <clipPath id="hello-text-clip">
-              <text
-                x="600"
-                y="160"
-                textAnchor="middle"
-                dominantBaseline="middle"
-                fontSize="130"
-                className="font-display font-black tracking-tighter uppercase"
-                style={{ fontWeight: 900 }}
-              >
-                HELLO WORLD
-              </text>
-            </clipPath>
-          </defs>
+    <>
+      <div
+        ref={curtainRef}
+        className="fixed inset-0 z-[9998] bg-[#050505] will-change-transform"
+        aria-hidden="true"
+      />
 
-          {/* Unfilled background text - Dark Gray */}
-          <text
-            x="600"
-            y="160"
-            textAnchor="middle"
-            dominantBaseline="middle"
-            fontSize="130"
-            className="font-display font-black tracking-tighter uppercase fill-[#181818]"
-            style={{ fontWeight: 900 }}
-          >
-            HELLO WORLD
-          </text>
-
-          {/* Water Fill - Clipped to Text */}
-          <g clipPath="url(#hello-text-clip)">
-            {isFilled || hasReducedMotion ? (
-              // Instant flat white on complete / reduced motion
-              <rect width="1200" height="300" fill="#f5f5f5" />
-            ) : (
-              // Animated wave path - pure white fill
-              <path ref={pathRef} fill="#f5f5f5" />
-            )}
-          </g>
-        </svg>
+      <div
+        ref={textShellRef}
+        className="fixed inset-0 z-[9999] flex items-center justify-center select-none pointer-events-none"
+        aria-hidden="true"
+      >
+        <div className="w-[88vw] sm:w-[82vw] md:w-[76vw] lg:w-[70vw] xl:w-[62vw]">
+          <WaterFillText ref={waterFillRef} />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -38,15 +38,7 @@ export default function Navbar() {
       className="fixed top-0 left-0 w-full z-50 px-6 py-6 md:px-12 md:py-8 flex justify-between items-center pointer-events-none"
     >
       {/* Brand logo - clickable */}
-      <div className="pointer-events-auto">
-        <a
-          href="#"
-          className="font-display font-bold text-lg tracking-widest text-[#f5f5f5] hover:opacity-75 transition-opacity"
-        >
-          FAIZAN.
-        </a>
-      </div>
-
+     
       {/* Center Zone: Clock (Desktop only) */}
       <div className="hidden md:flex flex-col items-center pointer-events-auto">
         <span className="text-[10px] uppercase tracking-[0.2em] text-[#888888]">
