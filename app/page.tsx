@@ -8,6 +8,7 @@ import ZoomParallax from "@/components/zoom-parallax/ZoomParallax";
 import Footer from "@/components/layout/Footer";
 import Philosophy from "@/components/sections/Philosophy";
 import SelectedWorks from "@/components/sections/SelectedWorks";
+import Expertise from "@/components/sections/Expertise";
 
 export default function Home() {
   const [loaderDone, setLoaderDone] = useState(false);
@@ -49,6 +50,7 @@ export default function Home() {
           <ZoomParallax />
           <Philosophy/>
           <SelectedWorks/>
+          <Expertise/>
         </main>
         <Footer />
       </div>

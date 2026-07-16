@@ -23,7 +23,7 @@ export function CollageLayout({ animations, scrollYProgress }: CollageLayoutProp
         style={{ opacity: textOpacity, scale: textScale }}
         className="absolute top-12 left-12 z-30 font-mono text-[10px] uppercase tracking-[0.3em] text-[#888888] select-none pointer-events-none hidden md:block"
       >
-        [ 02 / ZOOM PARALLAX COLLAGE ]
+        {/* [ 02 / ZOOM PARALLAX COLLAGE ] */}
       </motion.div>
 
       <motion.div
@@ -34,7 +34,7 @@ export function CollageLayout({ animations, scrollYProgress }: CollageLayoutProp
         <span className="text-[#444444]">THE SPACE BETWEEN</span>
       </motion.div>
 
-      {/* Render the 7 Images */}
+      {/* Render the collage media and editorial typography */}
       {PARALLAX_IMAGES.map((imgConfig) => {
         const anim = animations.find((a) => a.id === imgConfig.id);
         if (!anim) return null;
@@ -45,6 +45,7 @@ export function CollageLayout({ animations, scrollYProgress }: CollageLayoutProp
             id={imgConfig.id}
             src={imgConfig.src}
             alt={imgConfig.alt}
+            content={imgConfig.content}
             className={imgConfig.className}
             scale={anim.scale}
             x={anim.x}

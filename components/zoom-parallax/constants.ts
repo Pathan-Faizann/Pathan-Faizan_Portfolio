@@ -19,7 +19,8 @@ export const PARALLAX_IMAGES: ParallaxImageConfig[] = [
     id: "top-left",
     src: "/kronos.png",
     alt: "Kronos Horology Suite - Editorial Detail",
-    className: "absolute z-10 overflow-hidden border border-white/5 shadow-xl " +
+    content: "about",
+    className: "absolute z-10 " +
                "w-[24vw] h-[20vh] left-[8vw] top-[10vh] " +
                "md:w-[20vw] md:h-[24vh] md:left-[10vw] md:top-[8vh] " +
                "lg:w-[15vw] lg:h-[26vh] lg:left-[12vw] lg:top-[8vh]",
@@ -47,7 +48,8 @@ export const PARALLAX_IMAGES: ParallaxImageConfig[] = [
     id: "middle-left",
     src: "/my.jpeg",
     alt: "Faizan Pathan Portrait - Editorial Monochrome",
-    className: "absolute z-10 overflow-hidden border border-white/5 shadow-xl " +
+    content: "statement",
+    className: "absolute z-10 " +
                "w-[26vw] h-[22vh] left-[4vw] top-[38vh] " +
                "md:w-[22vw] md:h-[26vh] md:left-[6vw] md:top-[38vh] " +
                "lg:w-[16vw] lg:h-[30vh] lg:left-[10vw] lg:top-[36vh]",
@@ -75,7 +77,8 @@ export const PARALLAX_IMAGES: ParallaxImageConfig[] = [
     id: "bottom-left",
     src: "/detail.png",
     alt: "Luxury Interior Detail - Quiet Mood",
-    className: "absolute z-10 overflow-hidden border border-white/5 shadow-xl " +
+    content: "manifesto",
+    className: "absolute z-10 " +
                "w-[23vw] h-[18vh] left-[12vw] top-[70vh] " +
                "md:w-[19vw] md:h-[22vh] md:left-[14vw] md:top-[68vh] " +
                "lg:w-[14vw] lg:h-[24vh] lg:left-[16vw] lg:top-[68vh]",
