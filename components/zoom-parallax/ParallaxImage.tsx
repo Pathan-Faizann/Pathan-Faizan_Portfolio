@@ -47,7 +47,7 @@ function EditorialTextCard({ content }: Pick<ParallaxImageProps, "content">) {
 
   if (content === "statement") {
     return (
-      <div className="flex h-full w-full items-center text-[#ECECEC] select-none">
+      <div className="flex h-full w-full lg:pb-22! items-center text-[#ECECEC] select-none">
         <p className="w-[min(30vw,calc(100vw-3rem))] font-sans text-[clamp(1rem,1.65vw,1.65rem)] font-semibold leading-[1.2] tracking-[0.01em]">
           BCA graduate focused on building modern, thoughtful digital
           experiences with clean code and motion.
@@ -90,7 +90,13 @@ export const ParallaxImage = React.memo(function ParallaxImage({
       }}
       className={className}
     >
-      <div className={content ? "relative h-full w-full group" : "relative h-full w-full overflow-hidden group"}>
+      <div
+        className={
+          content
+            ? "relative h-full w-full group"
+            : "relative h-full w-full overflow-hidden group"
+        }
+      >
         {content ? (
           <EditorialTextCard content={content} />
         ) : (
