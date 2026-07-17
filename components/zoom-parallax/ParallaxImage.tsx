@@ -21,7 +21,7 @@ function EditorialTextCard({ content }: Pick<ParallaxImageProps, "content">) {
     return (
       <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-[radial-gradient(ellipse_at_center,#171717_0%,#0a0a0a_42%,#050505_100%)] px-[clamp(1rem,2vw,2.5rem)] text-[#ECECEC] select-none">
         <div className="relative z-10 flex flex-col items-center text-center">
-          <h2 className="font-display text-[clamp(2.1rem,6.25vw,4.5rem)] font-black uppercase leading-[0.82] tracking-normal">
+          <h2 className="font-display text-[clamp(2.1rem,6.25vw,3rem)] font-black uppercase leading-[0.82] tracking-normal">
             PROJECTS
           </h2>
           <p className="mt-[clamp(0.75rem,1.4vw,1.5rem)] font-mono text-[clamp(0.5rem,0.65vw,0.72rem)] uppercase tracking-[0.32em] text-[#ECECEC]/40">

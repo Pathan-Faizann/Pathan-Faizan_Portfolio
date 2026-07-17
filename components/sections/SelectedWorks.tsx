@@ -40,10 +40,8 @@ export default function SelectedWorks() {
     const trigger = triggerRef.current;
     if (!container || !trigger) return;
 
-    const numPanels = 4; // 1 Intro + 3 Case Studies
-    
     // We use a function to return the dynamic scroll amount when refreshing (e.g. window resize)
-    const getScrollAmount = () => window.innerWidth * (numPanels - 1);
+    const getScrollAmount = () => container.scrollWidth - trigger.clientWidth;
 
     const pin = gsap.to(container, {
       x: () => -getScrollAmount(),
@@ -65,12 +63,12 @@ export default function SelectedWorks() {
   }, []);
 
   return (
-    <div ref={triggerRef} id="works" className="relative bg-[#050505] overflow-hidden flex justify-center w-full">
+    <div ref={triggerRef} id="works" className="relative bg-[#050505] overflow-hidden flex justify-start w-full">
       {/* Scrollable Container */}
       <div ref={containerRef} className="flex h-screen w-fit items-center flex-row">
         
         {/* Intro Slide Panel */}
-        <div className="w-[100vw] h-screen flex flex-col justify-center items-center px-6 md:px-16 flex-shrink-0 bg-[#050505] relative">
+        {/* <div className="w-[100vw] h-screen flex flex-col justify-center items-center px-6 md:px-16 flex-shrink-0 bg-[#050505] relative">
           <div className="max-w-7xl w-full">
             <span className="text-xs font-mono uppercase tracking-[0.3em] text-[#888888] block mb-4">
               SELECTED WORKS / CASE STUDIES
@@ -79,7 +77,7 @@ export default function SelectedWorks() {
               PROJECTS
             </h2>
           </div>
-        </div>
+        </div> */}
 
         {/* Case Study Panels */}
         {PROJECTS.map((project, index) => (
