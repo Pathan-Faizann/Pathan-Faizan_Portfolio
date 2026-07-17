@@ -21,7 +21,7 @@ function EditorialTextCard({ content }: Pick<ParallaxImageProps, "content">) {
     return (
       <div className="relative flex h-full w-full items-center justify-center overflow-hidden bg-[radial-gradient(ellipse_at_center,#171717_0%,#0a0a0a_42%,#050505_100%)] px-[clamp(1rem,2vw,2.5rem)] text-[#ECECEC] select-none">
         <div className="relative z-10 flex flex-col items-center text-center">
-          <h2 className="font-display text-[clamp(2.1rem,6.25vw,4.5rem)] font-black uppercase leading-[0.82] tracking-normal">
+          <h2 className="font-display text-[clamp(2.1rem,6.25vw,3.6rem)] font-black uppercase leading-[0.82] tracking-normal">
             PROJECTS
           </h2>
           <p className="mt-[clamp(0.75rem,1.4vw,1.5rem)] font-mono text-[clamp(0.5rem,0.65vw,0.72rem)] uppercase tracking-[0.32em] text-[#ECECEC]/40">
@@ -47,7 +47,7 @@ function EditorialTextCard({ content }: Pick<ParallaxImageProps, "content">) {
 
   if (content === "statement") {
     return (
-      <div className="flex h-full w-full items-center text-[#ECECEC] select-none">
+      <div className="flex h-full w-full lg:pb-22! items-center text-[#ECECEC] select-none">
         <p className="w-[min(30vw,calc(100vw-3rem))] font-sans text-[clamp(1rem,1.65vw,1.65rem)] font-semibold leading-[1.2] tracking-[0.01em]">
           BCA graduate focused on building modern, thoughtful digital
           experiences with clean code and motion.
@@ -90,7 +90,13 @@ export const ParallaxImage = React.memo(function ParallaxImage({
       }}
       className={className}
     >
-      <div className={content ? "relative h-full w-full group" : "relative h-full w-full overflow-hidden group"}>
+      <div
+        className={
+          content
+            ? "relative h-full w-full group"
+            : "relative h-full w-full overflow-hidden group"
+        }
+      >
         {content ? (
           <EditorialTextCard content={content} />
         ) : (
