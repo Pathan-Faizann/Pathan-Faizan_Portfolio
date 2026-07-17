@@ -4,6 +4,13 @@ import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { gsap } from "@/lib/gsap";
 
+/**
+ * SelectedWorks — standalone horizontal scroll component.
+ * NOTE: This component is currently NOT used by page.tsx.
+ * The unified WorksSection component handles the full cinematic experience.
+ * Kept here as a clean standalone fallback.
+ */
+
 const PROJECTS = [
   {
     id: "aurelia",
@@ -40,7 +47,7 @@ export default function SelectedWorks() {
     const trigger = triggerRef.current;
     if (!container || !trigger) return;
 
-    // We use a function to return the dynamic scroll amount when refreshing (e.g. window resize)
+    // Dynamic: exact overflow distance based on real DOM dimensions
     const getScrollAmount = () => container.scrollWidth - trigger.clientWidth;
 
     const pin = gsap.to(container, {
@@ -49,7 +56,7 @@ export default function SelectedWorks() {
       scrollTrigger: {
         trigger: trigger,
         pin: true,
-        scrub: 1,
+        scrub: 1.2,
         start: "top top",
         end: () => `+=${getScrollAmount()}`,
         invalidateOnRefresh: true,
@@ -63,43 +70,30 @@ export default function SelectedWorks() {
   }, []);
 
   return (
-    <div ref={triggerRef} id="works" className="relative bg-[#050505] overflow-hidden flex justify-start w-full">
-      {/* Scrollable Container */}
+    <div
+      ref={triggerRef}
+      id="works"
+      className="relative bg-[#050505] overflow-hidden flex justify-start w-full"
+    >
       <div ref={containerRef} className="flex h-screen w-fit items-center flex-row">
-        
-        {/* Intro Slide Panel */}
-        {/* <div className="w-[100vw] h-screen flex flex-col justify-center items-center px-6 md:px-16 flex-shrink-0 bg-[#050505] relative">
-          <div className="max-w-7xl w-full">
-            <span className="text-xs font-mono uppercase tracking-[0.3em] text-[#888888] block mb-4">
-              SELECTED WORKS / CASE STUDIES
-            </span>
-            <h2 className="font-display text-5xl md:text-8xl font-black tracking-normal uppercase leading-[0.82] text-[#f5f5f5]">
-              PROJECTS
-            </h2>
-          </div>
-        </div> */}
-
-        {/* Case Study Panels */}
         {PROJECTS.map((project, index) => (
           <div
             key={project.id}
             className="w-[100vw] h-screen flex flex-col justify-center items-center px-6 md:px-16 flex-shrink-0 bg-[#050505] relative border-l border-[#111111]/30"
           >
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full max-w-7xl">
-              
-              {/* B&W Image with Premium Hover */}
+
               <div className="lg:col-span-7 overflow-hidden aspect-[16/10] relative group bg-[#0d0d0d] border border-[#1c1c1c]/50">
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
                   sizes="(max-width: 1024px) 100vw, 60vw"
-                  className="object-cover filter grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-102 transition-all duration-[1.5s] ease-premium"
+                  className="object-cover filter grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-[1.02] transition-all duration-[1.5s] ease-[cubic-bezier(0.76,0,0.24,1)]"
                   priority={index === 0}
                 />
               </div>
 
-              {/* Text Description */}
               <div className="lg:col-span-5 flex flex-col justify-between py-6 pl-0 lg:pl-12">
                 <div>
                   <span className="text-xs font-mono text-[#888888] uppercase tracking-[0.25em] block mb-2">
@@ -109,7 +103,6 @@ export default function SelectedWorks() {
                     {project.title}
                   </h3>
                 </div>
-
                 <div className="grid grid-cols-2 gap-6 border-t border-[#1c1c1c] pt-8 text-xs font-mono uppercase tracking-widest text-[#888888]">
                   <div>
                     <span className="text-[10px] text-[#555555] block mb-1">Services</span>

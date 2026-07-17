@@ -4,10 +4,9 @@ import React, { useRef, useState } from "react";
 import CinematicLoader from "@/components/loader/CinematicLoader";
 import Navbar from "@/components/layout/Navbar";
 import Hero, { HeroHandle } from "@/components/sections/Hero";
-import ZoomParallax from "@/components/zoom-parallax/ZoomParallax";
 import Footer from "@/components/layout/Footer";
 // import Philosophy from "@/components/sections/Philosophy";
-import SelectedWorks from "@/components/sections/SelectedWorks";
+import WorksSection from "@/components/sections/WorksSection";
 import Expertise from "@/components/sections/Expertise";
 
 export default function Home() {
@@ -47,10 +46,16 @@ export default function Home() {
         <Navbar />
         <main className="flex-1 w-full">
           <Hero ref={heroRef} titleRef={heroTitleRef} />
-          <ZoomParallax />
           {/* <Philosophy /> */}
-          <SelectedWorks/>
-          <Expertise/>
+          {/*
+           * WorksSection replaces both ZoomParallax + SelectedWorks.
+           * ONE pinned container, ONE GSAP timeline:
+           *   Phase 1 → collage zoom (same as original ZoomParallax)
+           *   Phase 2 → horizontal project panels slide over the frozen PROJECTS card
+           * Zero section jump. Zero visual cut.
+           */}
+          <WorksSection />
+          <Expertise />
         </main>
         <Footer />
       </div>
