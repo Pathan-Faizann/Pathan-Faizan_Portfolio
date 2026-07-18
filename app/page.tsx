@@ -7,6 +7,7 @@ import Hero, { HeroHandle } from "@/components/sections/Hero";
 import Footer from "@/components/layout/Footer";
 // import Philosophy from "@/components/sections/Philosophy";
 import WorksSection from "@/components/sections/WorksSection";
+import ExperienceSection from "@/components/sections/ExperienceSection";
 import Expertise from "@/components/sections/Expertise";
 
 export default function Home() {
@@ -55,6 +56,8 @@ export default function Home() {
            * Zero section jump. Zero visual cut.
            */}
           <WorksSection />
+          {/* Experience — independent section, starts after Selected Works unpins */}
+          <ExperienceSection />
           <Expertise />
         </main>
         <Footer />
