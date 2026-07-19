@@ -59,18 +59,18 @@ const PROJECTS = [
 
 export default function WorksSection() {
   const wrapperRef = useRef<HTMLDivElement>(null);
-  const stickyRef  = useRef<HTMLDivElement>(null);
+  const stickyRef = useRef<HTMLDivElement>(null);
   const collageRef = useRef<HTMLDivElement>(null);
-  const stripRef   = useRef<HTMLDivElement>(null);
+  const stripRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const wrapper = wrapperRef.current;
-    const sticky  = stickyRef.current;
+    const sticky = stickyRef.current;
     const collage = collageRef.current;
-    const strip   = stripRef.current;
+    const strip = stripRef.current;
     if (!wrapper || !sticky || !collage || !strip) return;
 
-    const getZoomPx  = () => window.innerHeight * 3;
+    const getZoomPx = () => window.innerHeight * 3;
     const getHorizPx = () => strip.scrollWidth - window.innerWidth;
     const getTotalPx = () => getZoomPx() + getHorizPx();
 
@@ -80,11 +80,11 @@ export default function WorksSection() {
       ctx?.revert();
 
       ctx = gsap.context(() => {
-        const zoomPx  = getZoomPx();
+        const zoomPx = getZoomPx();
         const horizPx = getHorizPx();
         const totalPx = zoomPx + horizPx;
 
-        const zoomFrac  = zoomPx  / totalPx;
+        const zoomFrac = zoomPx / totalPx;
         const horizFrac = horizPx / totalPx;
 
         // Initialize strip at starting position
@@ -105,27 +105,28 @@ export default function WorksSection() {
         // ── PHASE 1: ZOOM ──
         PARALLAX_IMAGES.forEach((img) => {
           const el = collage.querySelector<HTMLElement>(
-            `[data-parallax-id="${img.id}"]`
+            `[data-parallax-id="${img.id}"]`,
           );
           if (!el) return;
 
           tl.to(
             el,
             {
-              scale:   img.scaleRange[1],
-              x:       img.xRange[0] * img.depth,
-              y:       img.yRange[0] * img.depth,
+              scale: img.scaleRange[1],
+              x: img.xRange[0] * img.depth,
+              y: img.yRange[0] * img.depth,
               opacity: img.opacityRange[1],
-              ease:    "power2.inOut",
+              ease: "power2.inOut",
               force3D: true,
               duration: zoomFrac,
             },
-            0
+            0,
           );
         });
 
         // Scale and reveal the PROJECTS text in sync with the collage zoom
-        const textInner = sticky.querySelector<HTMLElement>("[data-text-inner]");
+        const textInner =
+          sticky.querySelector<HTMLElement>("[data-text-inner]");
         if (textInner) {
           tl.fromTo(
             textInner,
@@ -137,23 +138,25 @@ export default function WorksSection() {
               force3D: true,
               duration: zoomFrac,
             },
-            0
+            0,
           );
         }
 
         // Fade out the explore overlay
-        const textOverlay = sticky.querySelector<HTMLElement>("[data-text-overlay]");
+        const textOverlay = sticky.querySelector<HTMLElement>(
+          "[data-text-overlay]",
+        );
         if (textOverlay) {
           tl.to(
             textOverlay,
             {
-              opacity:  0,
-              scale:    0.94,
-              ease:     "power1.in",
-              force3D:  true,
+              opacity: 0,
+              scale: 0.94,
+              ease: "power1.in",
+              force3D: true,
               duration: 0.22 * zoomFrac,
             },
-            0
+            0,
           );
         }
 
@@ -161,13 +164,13 @@ export default function WorksSection() {
         tl.to(
           strip,
           {
-            x:    () => -(strip.scrollWidth - window.innerWidth),
+            x: () => -(strip.scrollWidth - window.innerWidth),
             ease: "none",
             force3D: true,
             duration: horizFrac,
             immediateRender: false,
           },
-          zoomFrac
+          zoomFrac,
         );
       });
     };
@@ -261,9 +264,7 @@ export default function WorksSection() {
                   }}
                 >
                   {img.content === "projects" && (
-                    <div
-                      className="relative h-full w-full overflow-hidden bg-transparent"
-                    />
+                    <div className="relative h-full w-full overflow-hidden bg-transparent" />
                   )}
 
                   {img.content === "about" && (
@@ -276,9 +277,14 @@ export default function WorksSection() {
 
                   {img.content === "statement" && (
                     <div className="flex h-full w-full items-center text-[#ECECEC] select-none">
-                      <p className="w-[min(30vw,calc(100vw-3rem))] font-sans text-[clamp(1rem,1.65vw,1.65rem)] font-semibold leading-[1.2] tracking-[0.01em]">
-                        BCA graduate focused on building modern, thoughtful
-                        digital experiences with clean code and motion.
+                      <p className="w-[min(30vw,calc(100vw-4rem))]! text-[clamp(1rem,1.65vw,1.45rem)] lg:pb-18! font-semibold leading-[1.2] tracking-[0.01em]">
+                        {/* BCA graduate focused on building modern, thoughtful
+                        digital experiences with clean code and motion. */}
+                        Building modern digital experiences with a strong focus
+                        on quality, performance, and thoughtful execution.
+                        Experienced working on live client projects,
+                        collaborating across teams, and transforming ideas into
+                        reliable products.
                       </p>
                     </div>
                   )}
