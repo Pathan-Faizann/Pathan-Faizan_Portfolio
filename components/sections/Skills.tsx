@@ -4,7 +4,7 @@ import { ContainerScroll } from "../ui/container-scroll-animation";
 
 export function Skills() {
   return (
-    <section className="w-full lg:pl-[16%]! 2xl:pl-[17%] flex justify-center">
+    <section className="w-full lg:pl-[16%]! 2xl:pl-[16.5%]! flex justify-center">
       <div className="w-full max-w-[1600px]">
         <ContainerScroll
           titleComponent={
