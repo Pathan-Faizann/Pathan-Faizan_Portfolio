@@ -59,7 +59,7 @@ export default function Home() {
            */}
           <WorksSection />
           {/* Experience — independent section, starts after Selected Works unpins */}
-          {/* <ExperienceSection /> */}
+          <ExperienceSection />
           {/* <JourneyOrb /> */}
           <Skills />
           <Expertise />
