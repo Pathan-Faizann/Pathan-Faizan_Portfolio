@@ -237,9 +237,8 @@ const ExperienceTextCard = ({
       initial={false}
       transition={FADE_TRANSITION}
       style={{ willChange: "opacity, transform" }}
-      className={`absolute inset-0 flex flex-col justify-center py-4 ${
-        isActive ? "pointer-events-auto" : "pointer-events-none"
-      }`}
+      className={`absolute inset-0 flex flex-col justify-center py-4 ${isActive ? "pointer-events-auto" : "pointer-events-none"
+        }`}
     >
       {/* Index Number */}
       <span className="font-mono text-xs text-white/40 tracking-[0.3em] uppercase mb-3">
@@ -305,9 +304,8 @@ const ExperienceImageCard = ({
       initial={false}
       transition={FADE_TRANSITION}
       style={{ willChange: "opacity, transform" }}
-      className={`absolute inset-0 w-full h-full p-2 sm:p-4 ${
-        isActive ? "pointer-events-auto" : "pointer-events-none"
-      }`}
+      className={`absolute inset-0 w-full h-full p-2 sm:p-4 ${isActive ? "pointer-events-auto" : "pointer-events-none"
+        }`}
     >
       <div className="relative w-full h-full rounded-2xl md:rounded-3xl overflow-hidden border border-white/10 bg-neutral-900/60 shadow-2xl backdrop-blur-sm group pointer-events-auto">
         <img
@@ -347,7 +345,10 @@ export default function FeatureScroll() {
   }, [scrollYProgress]);
 
   return (
-    <section className="relative w-full bg-black text-white selection:bg-white selection:text-black px-6 sm:px-8 md:px-12 lg:px-16">
+    <section
+      className="relative w-full bg-black text-white selection:bg-white selection:text-black px-6! sm:px-8 md:px-12 
+    lg:px-20!"
+    >
       {/* Ambient Background Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px]" />
 
@@ -377,7 +378,7 @@ export default function FeatureScroll() {
         {/* STICKY ANIMATION CONTAINER */}
         <div ref={containerRef} className="relative">
           <div className="h-[250vh]">
-            <div className="sticky top-0 h-screen w-full flex flex-col md:flex-row items-center gap-8 md:gap-16 py-8 overflow-hidden">
+            <div className="sticky top-0 pt-10! lg:pt-0 h-screen w-full flex flex-col md:flex-row items-center gap-8 md:gap-16 py-8 overflow-hidden">
               {/* LEFT SIDE: EDITORIAL CONTENT */}
               <div className="w-full md:w-[52%] lg:w-[50%] h-full flex items-center order-2 md:order-1">
                 <div className="relative w-full h-[460px]">
@@ -413,3 +414,4 @@ export default function FeatureScroll() {
     </section>
   );
 }
+

@@ -269,7 +269,7 @@ export default function WorksSection() {
 
                   {img.content === "about" && (
                     <div className="flex h-full w-full items-start text-[#ECECEC] select-none">
-                      <span className="whitespace-nowrap font-display text-[clamp(1.35rem,2.25vw,2.75rem)] font-[100] uppercase leading-none tracking-[0.18em]">
+                      <span className="whitespace-nowrap font-display text-xs sm:text-sm md:text-[clamp(1.35rem,2.25vw,2.75rem)] font-[100] uppercase leading-none tracking-[0.18em]">
                         [ ABOUT ]
                       </span>
                     </div>
@@ -277,7 +277,7 @@ export default function WorksSection() {
 
                   {img.content === "statement" && (
                     <div className="flex h-full w-full items-center text-[#ECECEC] select-none">
-                      <p className="w-[min(30vw,calc(100vw-4rem))]! text-[clamp(1rem,1.65vw,1.45rem)] lg:pb-18! font-semibold leading-[1.2] tracking-[0.01em]">
+                      <p className="w-full md:w-[min(30vw,calc(100vw-4rem))]! text-[11px] sm:text-xs md:text-[clamp(1rem,1.65vw,1.45rem)] lg:pb-18! font-semibold leading-tight md:leading-[1.2] tracking-[0.01em]">
                         {/* BCA graduate focused on building modern, thoughtful
                         digital experiences with clean code and motion. */}
                         Building modern digital experiences with a strong focus
@@ -291,7 +291,7 @@ export default function WorksSection() {
 
                   {img.content === "manifesto" && (
                     <div className="flex h-full w-full items-center text-[#ECECEC] select-none">
-                      <p className="whitespace-nowrap font-display text-[clamp(1.75rem,3.1vw,3.50rem)] font-semibold leading-[1.12] tracking-[0.01em]">
+                      <p className="whitespace-nowrap font-display text-xs sm:text-base md:text-[clamp(1.75rem,3.1vw,3.50rem)] font-semibold leading-[1.12] tracking-[0.01em]">
                         <span className="block">Learning.</span>
                         <span className="block">Building.</span>
                         <span className="block">Improving.</span>
@@ -318,11 +318,11 @@ export default function WorksSection() {
             {/* Pinned/Centered PROJECTS Text (outside the scaling cards to prevent blur/double scaling) */}
             <div
               data-projects-text
-              className="absolute inset-0 flex items-center justify-center pointer-events-none z-25"
+              className="absolute inset-0 flex items-center justify-center pointer-events-none z-25 px-4"
             >
               <div
                 data-text-inner
-                className="flex flex-col items-center text-center origin-center"
+                className="flex flex-col items-center text-center origin-center max-w-full"
                 style={{
                   willChange: "transform, opacity",
                   transform: "translate3d(0,0,0)",
@@ -330,13 +330,13 @@ export default function WorksSection() {
                   backfaceVisibility: "hidden",
                 }}
               >
-                <h2 className="font-display text-[clamp(10.08rem,30vw,14.4rem)] font-black uppercase leading-[0.82] tracking-normal text-[#ECECEC]">
+                <h2 className="font-display text-[clamp(2.5rem,11.5vw,4.5rem)] md:text-[clamp(10.08rem,30vw,14.4rem)] font-black uppercase leading-[0.85] md:leading-[0.82] tracking-tight md:tracking-normal text-[#ECECEC]">
                   PROJECTS
                 </h2>
-                <p className="mt-[clamp(3.6rem,6.72vw,7.2rem)] font-mono text-[clamp(2.4rem,3.12vw,3.456rem)] uppercase tracking-[0.32em] text-[#ECECEC]/40">
+                <p className="mt-3 sm:mt-4 md:mt-[clamp(3.6rem,6.72vw,7.2rem)] font-mono text-[11px] sm:text-xs md:text-[clamp(2.4rem,3.12vw,3.456rem)] uppercase tracking-[0.2em] sm:tracking-[0.25em] md:tracking-[0.32em] text-[#ECECEC]/40">
                   Selected Works
                 </p>
-                <p className="mt-10 font-mono text-[clamp(2.016rem,2.4vw,2.784rem)] uppercase tracking-[0.2em] text-[#ECECEC]/30">
+                <p className="mt-2 sm:mt-3 md:mt-10 font-mono text-[9px] sm:text-[10px] md:text-[clamp(2.016rem,2.4vw,2.784rem)] uppercase tracking-[0.12em] sm:tracking-[0.15em] md:tracking-[0.2em] text-[#ECECEC]/30">
                   Curated Digital Experiences
                 </p>
               </div>
@@ -352,8 +352,8 @@ export default function WorksSection() {
             >
               <div className="absolute left-0 top-0 w-px h-full bg-[#111111]/40 z-10" />
 
-              <div className="w-full h-full flex flex-col justify-center items-center px-6 md:px-16">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center w-full max-w-7xl">
+              <div className="w-full h-full flex flex-col justify-center items-center px-4 sm:px-6 md:px-16">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-8 items-center w-full max-w-7xl">
                   {/* Project Image */}
                   <div className="lg:col-span-7 overflow-hidden aspect-[16/10] relative group bg-[#0d0d0d] border border-[#1c1c1c]/50">
                     <Image
@@ -367,16 +367,16 @@ export default function WorksSection() {
                   </div>
 
                   {/* Project Info */}
-                  <div className="lg:col-span-5 flex flex-col justify-between py-6 pl-0 lg:pl-12">
+                  <div className="lg:col-span-5 flex flex-col justify-between py-2 sm:py-4 lg:py-6 pl-0 lg:pl-12">
                     <div>
-                      <span className="text-xs font-mono text-[#888888] uppercase tracking-[0.25em] block mb-2">
+                      <span className="text-[10px] sm:text-xs font-mono text-[#888888] uppercase tracking-[0.2em] sm:tracking-[0.25em] block mb-1.5 sm:mb-2">
                         {project.category}
                       </span>
-                      <h3 className="font-display text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#f5f5f5] mb-6">
+                      <h3 className="font-display text-2xl sm:text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#f5f5f5] mb-3 sm:mb-6">
                         {project.title}
                       </h3>
                     </div>
-                    <div className="grid grid-cols-2 gap-6 border-t border-[#1c1c1c] pt-8 text-xs font-mono uppercase tracking-widest text-[#888888]">
+                    <div className="grid grid-cols-2 gap-4 sm:gap-6 border-t border-[#1c1c1c] pt-4 sm:pt-8 text-[11px] sm:text-xs font-mono uppercase tracking-widest text-[#888888]">
                       <div>
                         <span className="text-[10px] text-[#555555] block mb-1">
                           Services
