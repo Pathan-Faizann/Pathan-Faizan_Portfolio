@@ -32,28 +32,54 @@ import { PARALLAX_IMAGES } from "@/components/zoom-parallax/constants";
 
 const PROJECTS = [
   {
-    id: "aurelia",
-    title: "Aurelia Residences",
-    category: "Architecture & Design",
-    year: "2025",
-    role: "Digital Direction",
-    image: "/aurelia.png",
+    id: "darsh-industrial-parks",
+    title: "Darsh Industrial Parks",
+    href: "https://www.darshindustrialparks.com/",
+    industry: "Industrial & Logistics",
+    description:
+      "Developed responsive frontend pages across the platform, delivering clean layouts, intuitive navigation, and production-ready user experiences.",
+    website: "Visit Website ↗",
+    image: "/Darsh.png",
   },
   {
-    id: "kronos",
-    title: "Kronos Horology",
-    category: "E-Commerce Suite",
-    year: "2025",
-    role: "Design & Dev",
-    image: "/kronos.png",
+    id: "ksh-infra",
+    title: "KSH Infra",
+    href: "https://www.kshinfra.com/",
+    industry: "Grade A Industrial Parks",
+    description:
+      "Built multiple frontend pages focused on responsive design, smooth interactions, and a consistent digital experience across the website.",
+    website: "Visit Website ↗",
+    image: "/ksh.jpeg",
   },
   {
-    id: "nordic",
-    title: "Nordic Editorial",
-    category: "Visual Identity",
-    year: "2024",
-    role: "Frontend Engineering",
-    image: "/nordic.png",
+    id: "horizon-industrial-parks",
+    title: "Horizon Industrial Parks",
+    href: "https://www.hiparks.com/",
+    industry: "Industrial Infrastructure",
+    description:
+      "Contributed to frontend development with modern layouts, seamless navigation, and polished interfaces for an enterprise-scale platform.",
+    website: "Visit Website ↗",
+    image: "/horizon-industrial-parks.jpg",
+  },
+  {
+    id: "buildspace",
+    title: "BuildSpace",
+    href: "https://buildspaceweb.vercel.app/",
+    industry: "Infrastructure Development",
+    description:
+      "Crafted responsive frontend experiences showcasing investment opportunities, infrastructure solutions, and business capabilities with performance in mind.",
+    website: "Visit Website ↗",
+    image: "/buildspace.png",
+  },
+  {
+    id: "arenax",
+    title: "ArenaX",
+    href: "https://turf-project-bice.vercel.app/",
+    industry: "Sports Booking Platform",
+    description:
+      "Designed and developed a modern turf booking platform featuring seamless reservations, intuitive user flows, and a community-driven sports experience.",
+    website: "Visit Website ↗",
+    image: "/arenax.png",
   },
 ];
 
@@ -353,7 +379,7 @@ export default function WorksSection() {
               <div className="absolute left-0 top-0 w-px h-full bg-[#111111]/40 z-10" />
 
               <div className="w-full h-full flex flex-col justify-center items-center px-4 sm:px-6 md:px-16">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-6 lg:gap-8 items-center w-full max-w-7xl">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center w-full max-w-7xl">
                   {/* Project Image */}
                   <div className="lg:col-span-7 overflow-hidden aspect-[16/10] relative group bg-[#0d0d0d] border border-[#1c1c1c]/50">
                     <Image
@@ -361,34 +387,38 @@ export default function WorksSection() {
                       alt={project.title}
                       fill
                       sizes="(max-width: 1024px) 100vw, 60vw"
-                      className="object-cover filter grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-[1.02] transition-all duration-[1.5s] ease-[cubic-bezier(0.76,0,0.24,1)]"
                       priority={index === 0}
+                      className="object-cover grayscale contrast-110 group-hover:grayscale-0 group-hover:scale-[1.02] transition-all duration-[1500ms] ease-[cubic-bezier(0.76,0,0.24,1)]"
                     />
                   </div>
 
                   {/* Project Info */}
-                  <div className="lg:col-span-5 flex flex-col justify-between py-2 sm:py-4 lg:py-6 pl-0 lg:pl-12">
-                    <div>
-                      <span className="text-[10px] sm:text-xs font-mono text-[#888888] uppercase tracking-[0.2em] sm:tracking-[0.25em] block mb-1.5 sm:mb-2">
-                        {project.category}
-                      </span>
-                      <h3 className="font-display text-2xl sm:text-3xl md:text-5xl font-black uppercase tracking-tighter text-[#f5f5f5] mb-3 sm:mb-6">
-                        {project.title}
-                      </h3>
-                    </div>
-                    <div className="grid grid-cols-2 gap-4 sm:gap-6 border-t border-[#1c1c1c] pt-4 sm:pt-8 text-[11px] sm:text-xs font-mono uppercase tracking-widest text-[#888888]">
-                      <div>
-                        <span className="text-[10px] text-[#555555] block mb-1">
-                          Services
-                        </span>
-                        <span className="text-[#f5f5f5]">{project.role}</span>
-                      </div>
-                      <div>
-                        <span className="text-[10px] text-[#555555] block mb-1">
-                          Year
-                        </span>
-                        <span className="text-[#f5f5f5]">{project.year}</span>
-                      </div>
+                  <div className="lg:col-span-5 flex flex-col justify-center h-full lg:pl-12">
+                    {/* Industry */}
+                    <span className="text-[11px] font-mono uppercase tracking-[0.28em] text-[#7f7f7f] mb-4!">
+                      {project.industry}
+                    </span>
+
+                    {/* Project Name */}
+                    <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-[#f5f5f5] leading-[0.95] mb-6">
+                      {project.title}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="max-w-md text-[15px] leading-normal text-[#8c8c8c] my-10!">
+                      {project.description}
+                    </p>
+
+                    {/* Divider */}
+                    <div className="border-t border-[#1c1c1c] pt-6">
+                      <a
+                        target="_blank"
+                        href={project.href}
+                        rel="noopener noreferrer"
+                        className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.28em] text-[#f5f5f5] transition-all duration-300 hover:tracking-[0.35em]"
+                      >
+                        {project.website}
+                      </a>
                     </div>
                   </div>
                 </div>
