@@ -90,7 +90,7 @@ export default function Navbar() {
           <button
             key={item.id}
             onClick={() => scrollToSection(item.id)}
-            className="text-[11px] sm:text-xs uppercase tracking-[0.2em] text-[#888888] hover:text-[#f5f5f5] transition-colors cursor-pointer"
+            className="text-[10px] sm:text-xs uppercase tracking-[0.2em] text-[#888888] hover:text-[#f5f5f5] transition-colors cursor-pointer"
           >
             {item.label}
           </button>

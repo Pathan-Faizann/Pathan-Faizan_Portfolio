@@ -378,10 +378,10 @@ export default function WorksSection() {
             >
               <div className="absolute left-0 top-0 w-px h-full bg-[#111111]/40 z-10" />
 
-              <div className="w-full h-full flex flex-col justify-center items-center px-4 sm:px-6 md:px-16">
-                <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-10 items-center w-full max-w-7xl">
+              <div className="w-full h-full flex flex-col justify-center items-center px-5 sm:px-8 md:px-16">
+                <div className="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 lg:gap-10 items-center w-full max-w-7xl">
                   {/* Project Image */}
-                  <div className="lg:col-span-7 overflow-hidden aspect-[16/10] relative group bg-[#0d0d0d] border border-[#1c1c1c]/50">
+                  <div className="lg:col-span-7 overflow-hidden aspect-[16/10] relative group bg-[#0d0d0d] border border-[#1c1c1c]/50 rounded-lg sm:rounded-none">
                     <Image
                       src={project.image}
                       alt={project.title}
@@ -395,22 +395,22 @@ export default function WorksSection() {
                   {/* Project Info */}
                   <div className="lg:col-span-5 flex flex-col justify-center h-full lg:pl-12">
                     {/* Industry */}
-                    <span className="text-[11px] font-mono uppercase tracking-[0.28em] text-[#7f7f7f] mb-4!">
+                    <span className="text-[11px] font-mono uppercase tracking-[0.28em] text-[#7f7f7f] mb-2! sm:mb-4!">
                       {project.industry}
                     </span>
 
                     {/* Project Name */}
-                    <h3 className="font-display text-3xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight text-[#f5f5f5] leading-[0.95] mb-6">
+                    <h3 className="font-display text-2xl sm:text-3xl md:text-5xl font-black uppercase tracking-tight text-[#f5f5f5] leading-[0.95] mb-3 sm:mb-6">
                       {project.title}
                     </h3>
 
                     {/* Description */}
-                    <p className="max-w-md text-[15px] leading-normal text-[#8c8c8c] my-10!">
+                    <p className="max-w-md text-sm md:text-[15px] leading-normal text-[#8c8c8c] my-3! sm:my-10!">
                       {project.description}
                     </p>
 
                     {/* Divider */}
-                    <div className="border-t border-[#1c1c1c] pt-6">
+                    <div className="border-t border-[#1c1c1c] pt-4 sm:pt-6">
                       <a
                         target="_blank"
                         href={project.href}

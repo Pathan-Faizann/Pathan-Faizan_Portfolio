@@ -116,7 +116,7 @@ const Hero = forwardRef<HeroHandle, HeroProps>(function Hero(
       <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10 my-auto">
 
         {/* Left Column: Title + Subtitle */}
-        <div className="lg:col-span-7 flex flex-col justify-center items-center lg:items-start select-none">
+        <div className="lg:col-span-7 flex flex-col justify-center lg:items-start items-center select-none">
           {/*
            * HeroTitle receives the ref so the loader can read its rect.
            * It renders PATHAN / FAIZAN with visibility:hidden initially.
@@ -125,25 +125,25 @@ const Hero = forwardRef<HeroHandle, HeroProps>(function Hero(
           <HeroTitle ref={titleRef} />
 
           {/* Sub-title label lines (FULL STACK / DEVELOPER) */}
-          <div className="flex flex-col font-display text-center font-bold tracking-tighter ml-16! uppercase leading-[0.85] mt-2! select-none">
-            <span className="block text-3xl sm:text-5xl pl-10 md:text-6xl lg:text-[4.5vw] text-[#666666]">
+          <div className="flex flex-col font-display text-center lg:justify-start justify-center!  lg:text-center font-bold tracking-tighter ml-0! lg:ml-16! uppercase leading-[0.85] mt-2! select-none">
+            <span className="block text-3xl sm:text-5xl pl-0 lg:pl-10 md:text-6xl lg:text-[4.5vw] text-[#666666]">
               FULL STACK
             </span>
-            <span className="block text-3xl sm:text-5xl ml-10 md:text-6xl lg:text-[4.5vw] text-[#666666] mb-4">
+            <span className="block text-3xl sm:text-5xl ml-0 lg:ml-10 md:text-6xl lg:text-[4.5vw] text-[#666666] mb-4">
               DEVELOPER
             </span>
           </div>
 
           {/* Subtitle paragraph */}
-          <div
+          {/* <div
             ref={subTextRef}
-            className="max-w-md text-xs sm:text-sm text-[#888888] ml-12! font-mono text-center leading-relaxed uppercase tracking-wider mt-10 pl-1 border-l border-[#222222]"
+            className="max-w-md text-xs sm:text-sm hidden lg:block text-[#888888] ml-0! lg:ml-12! font-mono text-center lg:text-center leading-relaxed uppercase tracking-wider mt-6 lg:mt-10 pl-3 lg:pl-1 border-l border-[#222222]"
           >
             <p>
               Building elegant digital experiences through thoughtful
               engineering, motion design and modern web technologies.
             </p>
-          </div>
+          </div> */}
         </div>
 
         {/* Right Column: Portrait */}
