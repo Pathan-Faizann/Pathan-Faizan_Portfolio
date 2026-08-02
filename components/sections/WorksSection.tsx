@@ -318,7 +318,7 @@ export default function WorksSection() {
                   {img.content === "manifesto" && (
                     <div className="flex h-full w-full items-center text-[#ECECEC] select-none">
                       <p className="whitespace-nowrap font-display text-xs sm:text-base md:text-[clamp(1.75rem,3.1vw,3.50rem)] font-semibold leading-[1.12] tracking-[0.01em]">
-                        <span className="block">Learning.</span>
+                        {/* <span className="block">Learning.</span> */}
                         <span className="block">Building.</span>
                         <span className="block">Improving.</span>
                       </p>
