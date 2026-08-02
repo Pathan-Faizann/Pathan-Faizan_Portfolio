@@ -71,7 +71,7 @@ export const PARALLAX_IMAGES: ParallaxImageConfig[] = [
     content: "manifesto",
 
     className:
-      "absolute z-10 overflow-hidden border border-white/5 shadow-xl " +
+      "absolute z-10 overflow-hidden " +
       "w-[25vw] h-[22vh] left-[71vw] top-[36vh] " +
       "md:w-[21vw] md:h-[27vh] md:left-[73vw] md:top-[34vh] " +
       "lg:w-[17vw] lg:h-[32vh] lg:left-[73vw] lg:top-[32vh]",

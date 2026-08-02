@@ -33,9 +33,9 @@ const Hero = forwardRef<HeroHandle, HeroProps>(function Hero(
   { titleRef },
   ref
 ) {
-  const subTextRef        = useRef<HTMLDivElement>(null);
+  const subTextRef = useRef<HTMLDivElement>(null);
   const scrollIndicatorRef = useRef<HTMLDivElement>(null);
-  const portraitRef       = useRef<HTMLDivElement>(null);
+  const portraitRef = useRef<HTMLDivElement>(null);
 
   // Expose playEntrance() to parent
   useImperativeHandle(ref, () => ({
@@ -97,7 +97,7 @@ const Hero = forwardRef<HeroHandle, HeroProps>(function Hero(
       y: 28,
       scale: 0.97,
     });
-    gsap.set(subTextRef.current,        { opacity: 0, y: 16 });
+    gsap.set(subTextRef.current, { opacity: 0, y: 16 });
     gsap.set(scrollIndicatorRef.current, { opacity: 0 });
   }, []);
 
@@ -149,11 +149,11 @@ const Hero = forwardRef<HeroHandle, HeroProps>(function Hero(
         {/* Right Column: Portrait */}
         <div className="lg:col-span-5 flex justify-center items-center relative">
           {/* Studio spotlight glow */}
-          <div className="absolute top-[10%] left-[50%] -translate-x-[50%] w-[80%] aspect-square rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.06)_0%,transparent_70%)] pointer-events-none z-0" />
+          <div className="absolute top-[0%] left-[50%] -translate-x-[50%] w-[80%] aspect-square rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.06)_0%,transparent_70%)] pointer-events-none z-0" />
 
           <div
             ref={portraitRef}
-            className="relative w-full max-w-[340px] aspect-[4/5] sm:max-w-[380px] lg:max-w-full overflow-hidden z-10 will-change-transform"
+            className="relative w-full max-w-[340px] aspect-[4/5] sm:max-w-[380px] lg:max-w-full z-10 will-change-transform"
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
@@ -167,6 +167,7 @@ const Hero = forwardRef<HeroHandle, HeroProps>(function Hero(
                   "radial-gradient(circle at 50% 35%, black 25%, transparent 75%)",
               }}
             />
+           
             <div className="absolute inset-0 pointer-events-none bg-[radial-gradient(circle_at_50%_35%,transparent_35%,#050505_85%)] opacity-70" />
             <div className="absolute inset-0 pointer-events-none bg-gradient-to-t from-[#050505] via-transparent to-transparent opacity-90" />
           </div>
@@ -179,12 +180,12 @@ const Hero = forwardRef<HeroHandle, HeroProps>(function Hero(
           ref={scrollIndicatorRef}
           className="flex items-center gap-4 text-[#444444]"
         >
-          <span className="text-[9px] uppercase tracking-[0.4em] font-mono">
+          {/* <span className="text-[9px] uppercase tracking-[0.4em] font-mono">
             Scroll
-          </span>
-          <div className="w-[1px] h-16 bg-gradient-to-b from-[#222222] to-transparent relative overflow-hidden">
+          </span> */}
+          {/* <div className="w-[1px] h-16 bg-gradient-to-b from-[#222222] to-transparent relative overflow-hidden">
             <div className="absolute top-0 left-0 w-full h-1/3 bg-[#888888] animate-[slow-scroll-line_3s_infinite_cubic-bezier(0.76,0,0.24,1)]" />
-          </div>
+          </div> */}
         </div>
       </div>
 
