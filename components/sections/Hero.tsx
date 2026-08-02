@@ -155,6 +155,13 @@ const Hero = forwardRef<HeroHandle, HeroProps>(function Hero(
             ref={portraitRef}
             className="relative w-full max-w-[340px] aspect-[4/5] sm:max-w-[380px] lg:max-w-full z-10 will-change-transform"
           >
+          <div
+  className="absolute top-0 left-0 right-0 h-20 z-20 pointer-events-none"
+  style={{
+    background:
+      "linear-gradient(to bottom, rgba(5,5,5,0.9) 0%, rgba(5,5,5,0.35) 50%, transparent 100%)",
+  }}
+/>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src="/my.jpeg"

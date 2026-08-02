@@ -4,7 +4,7 @@ import { ContainerScroll } from "../ui/container-scroll-animation";
 
 export function Skills() {
   return (
-    <section className="w-full bg-[#050505] overflow-x-hidden">
+    <section id="skills" className="w-full bg-[#050505] overflow-x-hidden">
       <ContainerScroll
         titleComponent={
           <></>
