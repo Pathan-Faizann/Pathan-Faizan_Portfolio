@@ -29,7 +29,7 @@ export default function Footer() {
       id="contact"
       className="bg-[#050505] text-[#f5f5f5] px-6 py-20 md:px-16 md:py-32 flex justify-center w-full"
     >
-      <div className="max-w-[1500px] w-full flex flex-col justify-between h-full">
+      <div className="max-w-[1400px] w-full flex flex-col justify-between h-full">
         {/* Massive Typographic Call to Action */}
         <div className="mb-20 md:mb-32">
           <span className="text-xs uppercase tracking-[0.3em] text-[#888888] block mb-6">
