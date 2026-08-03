@@ -105,7 +105,7 @@ export default function ExperienceSection() {
       {/* Ambient Background Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px]" />
 
-      <div className="max-w-[1500px] w-full mx-auto px-6! sm:px-6 lg:px-1 relative z-10 flex flex-col items-center">
+      <div className="max-w-[1300px] w-full mx-auto px-6! sm:px-6 lg:px-0 relative z-10 flex justify-center flex-col items-center">
         {/* SECTION HEADER - Centered */}
         <div className="flex flex-col items-center text-start sm:text-start max-w-8xl mx-auto pb-10! sm:pb-12 lg:pb-16 mb-8 sm:mb-12 lg:mb-16 w-full">
           <div className="flex items-center gap-2.5 sm:gap-3 mb-3! sm:mb-4">
@@ -146,7 +146,9 @@ export default function ExperienceSection() {
 
                 {/* Meta Bar */}
                 <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 lg:gap-6 text-[10px] sm:text-xs uppercase tracking-widest text-white/40 mb-4 sm:mb-6 border-y border-white/10 py-2.5 sm:py-3.5 max-w-xl w-full">
-                  <span className="text-white/60 font-mono font-semibold">{item.number}</span>
+                  <span className="text-white/60 font-mono font-semibold">
+                    {item.number}
+                  </span>
                   <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-white/20" />
                   <span>{item.location}</span>
                   <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-white/20" />
@@ -204,7 +206,7 @@ export default function ExperienceSection() {
                   <img
                     src={item.img}
                     alt={`${item.company} screenshot`}
-                    className={`w-full ${index==1?"object-contain":"object-cover"} h-full grayscale contrast-[1.05] brightness-[0.9] hover:grayscale-0 transition-all duration-700`}
+                    className={`w-full ${index == 1 ? "object-contain" : "object-cover"} h-full grayscale contrast-[1.05] brightness-[0.9] hover:grayscale-0 transition-all duration-700`}
                   />
                   {/* Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none" />
