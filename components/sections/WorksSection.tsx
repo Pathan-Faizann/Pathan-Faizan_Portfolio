@@ -728,7 +728,7 @@ export default function WorksSection() {
 
                     {img.content === "statement" && (
                       <div className="flex h-full w-full items-center text-[#ECECEC] select-none">
-                        <p className="w-full md:w-[min(30vw,calc(100vw-4rem))]! text-[11px] sm:text-xs md:text-[clamp(1rem,1.65vw,1.45rem)] lg:pb-18! font-semibold leading-tight md:leading-[1.2] tracking-[0.01em]">
+                        <p className="w-full md:w-[min(30vw,calc(100vw-4rem))]! text-[11px] sm:text-xs md:text-[clamp(1rem,1.65vw,1.45rem)] lg:pb-18! font-normal leading-tight md:leading-[1.2] tracking-[0.01em]">
                           Building modern digital experiences with a strong
                           focus on quality, performance, and thoughtful
                           execution. Experienced working on live client

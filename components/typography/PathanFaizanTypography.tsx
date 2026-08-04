@@ -29,7 +29,7 @@ export default function PathanFaizanTypography({
     textAnchor: "middle" as const,
     dominantBaseline: "middle" as const,
     fontSize: 270,
-    fontFamily: "var(--font-geist-sans), system-ui, sans-serif",
+    fontFamily: "var(--font-plus-jakarta-sans), system-ui, sans-serif",
     fontWeight: 900,
     letterSpacing: "-12",
     style: { textTransform: "uppercase" as const },

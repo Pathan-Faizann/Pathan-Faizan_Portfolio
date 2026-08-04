@@ -12,9 +12,10 @@
   --color-text-muted: #888888;
 
   --font-sans:
-    var(--font-instrument-sans), system-ui, -apple-system, sans-serif;
-  --font-display: var(--font-geist-sans), system-ui, -apple-system, sans-serif;
-  --font-mono: var(--font-geist-mono), monospace;
+    var(--font-plus-jakarta-sans), system-ui, -apple-system, sans-serif;
+  --font-display:
+    var(--font-plus-jakarta-sans), system-ui, -apple-system, sans-serif;
+  --font-mono: var(--font-plus-jakarta-sans), monospace;
 
   --ease-premium: cubic-bezier(0.76, 0, 0.24, 1);
 }
@@ -60,7 +61,7 @@
   margin: 0;
   padding: 0;
   font-family:
-    var(--font-geist-sans),
+    var(--font-plus-jakarta-sans),
     system-ui,
     -apple-system,
     sans-serif !important;
@@ -70,7 +71,11 @@ html,
 body {
   background-color: var(--background);
   color: var(--foreground);
-  font-family: var(--font-sans);
+  font-family:
+    var(--font-plus-jakarta-sans),
+    system-ui,
+    -apple-system,
+    sans-serif !important;
   width: 100%;
   min-height: 100%;
   -webkit-font-smoothing: antialiased;

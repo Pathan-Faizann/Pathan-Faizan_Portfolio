@@ -57,7 +57,7 @@ export const PARALLAX_IMAGES: ParallaxImageConfig[] = [
       "absolute z-10 " +
       "w-[29vw] h-[22vh] left-[4vw] top-[38vh] " +
       "md:w-[22vw] md:h-[26vh] md:left-[6vw] md:top-[38vh] " +
-      "lg:w-[24vw] lg:h-[30vh] lg:left-[7vw] lg:top-[35vh]",
+      "lg:w-[27vw] lg:h-[30vh] lg:left-[7vw] lg:top-[35vh]",
     scaleRange: [1, 1.8],
     xRange: [-550, -100], // Fly left
     yRange: [60, 10],
