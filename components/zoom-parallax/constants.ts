@@ -83,14 +83,14 @@ export const PARALLAX_IMAGES: ParallaxImageConfig[] = [
   },
   {
     id: "bottom-left",
-    src: "/detail.png",
-    alt: "Luxury Interior Detail - Quiet Mood",
+    src: "/aboutvud.mp4",
+    alt: "Looping left-side video",
     // content: "manifesto",
     className:
       "absolute z-10 " +
       "w-[23vw] h-[18vh] left-[12vw] top-[70vh] " +
       "md:w-[19vw] md:h-[22vh] md:left-[14vw] md:top-[68vh] " +
-      "lg:w-[14vw] lg:h-[24vh] lg:left-[16vw] lg:top-[68vh]",
+      "lg:w-[19vw] lg:h-[29vh] lg:left-[16vw] lg:top-[68vh]",
     scaleRange: [1, 2.0],
     xRange: [-400, -80], // Fly bottom-left
     yRange: [450, 80],
@@ -99,13 +99,13 @@ export const PARALLAX_IMAGES: ParallaxImageConfig[] = [
   },
   {
     id: "bottom-right",
-    src: "/pexels-pixabay-256502.jpg",
+    src: "/new.jpeg ",
     alt: "Aurelia Luxury Residences - Architectural Detail",
     className:
-      "absolute z-10 overflow-hidden border border-white/5 shadow-xl brightness-[200]" +
+      "absolute z-10 scale-50 overflow-hidden border border-white/5 shadow-xl brightness-[200]" +
       "w-[25vw] h-[20vh] left-[63vw] top-[68vh] " +
       "md:w-[21vw] md:h-[24vh] md:left-[64vw] md:top-[66vh] " +
-      "lg:w-[16vw] lg:h-[27vh] lg:left-[66vw] lg:top-[66vh]",
+      "lg:w-[19vw] lg:h-[29vh] lg:left-[66vw] lg:top-[60vh]",
     scaleRange: [1, 2.3],
     xRange: [420, 80], // Fly bottom-right
     yRange: [420, 80],
