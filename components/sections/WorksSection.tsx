@@ -449,6 +449,16 @@ function checkIsVideo(url: string | undefined | null): boolean {
 
 const PROJECTS = [
   {
+    id: "horizon-industrial-parks",
+    title: "Horizon Industrial Parks",
+    href: "https://www.hiparks.com/",
+    industry: "Industrial Infrastructure",
+    description:
+      "Contributed to frontend development with modern layouts, seamless navigation, and polished interfaces for an enterprise-scale platform.",
+    website: "Visit Website ↗",
+    image: "/horizon-industrial-parks.jpg",
+  },
+  {
     id: "darsh-industrial-parks",
     title: "Darsh Industrial Parks",
     href: "https://www.darshindustrialparks.com/",
@@ -466,17 +476,7 @@ const PROJECTS = [
     description:
       "Built multiple frontend pages focused on responsive design, smooth interactions, and a consistent digital experience across the website.",
     website: "Visit Website ↗",
-    image: "/ksh.jpeg",
-  },
-  {
-    id: "horizon-industrial-parks",
-    title: "Horizon Industrial Parks",
-    href: "https://www.hiparks.com/",
-    industry: "Industrial Infrastructure",
-    description:
-      "Contributed to frontend development with modern layouts, seamless navigation, and polished interfaces for an enterprise-scale platform.",
-    website: "Visit Website ↗",
-    image: "/horizon-industrial-parks.jpg",
+    image: "/kshLogo.svg",
   },
   {
     id: "buildspace",
@@ -489,14 +489,14 @@ const PROJECTS = [
     image: "/buildspace.png",
   },
   {
-    id: "arenax",
-    title: "ArenaX",
-    href: "https://turf-project-bice.vercel.app/",
-    industry: "Sports Booking Platform",
+    id: "getgrowth-rocket",
+    title: "GetGrowth Rocket",
+    href: "https://www.getgrowthrocket.com/",
+    industry: "Digital Marketing & Growth Agency",
     description:
-      "Designed and developed a modern turf booking platform featuring seamless reservations, intuitive user flows, and a community-driven sports experience.",
+      "Developed multiple fully responsive website templates and integrated robust backend functionalities to deliver a seamless, scalable, and highly performant user experience.",
     website: "Visit Website ↗",
-    image: "/arenax.png",
+    image: "/ggrF.png",
   },
 ];
 

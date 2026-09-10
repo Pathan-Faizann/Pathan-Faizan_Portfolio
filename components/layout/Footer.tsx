@@ -51,7 +51,7 @@ export default function Footer() {
               href="mailto:hello@faizan.design"
               className="text-lg font-mono hover:opacity-75 transition-opacity inline-block w-fit text-[#f5f5f5]"
             >
-              hello@faizan.design
+              faizanpathan8104@gmail.com
             </a>
           </div>
 
@@ -62,7 +62,7 @@ export default function Footer() {
             </span>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-mono uppercase tracking-wider text-[#888888]">
               <a
-                href="https://github.com"
+                href="https://github.com/Pathan-Faizann"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[#f5f5f5] transition-colors"
@@ -70,7 +70,7 @@ export default function Footer() {
                 GitHub
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/pathan-faizan/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[#f5f5f5] transition-colors"
