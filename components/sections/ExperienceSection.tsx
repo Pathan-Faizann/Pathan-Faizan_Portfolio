@@ -100,7 +100,7 @@ export default function ExperienceSection() {
     <section
       ref={sectionRef}
       id="experience"
-      className="relative w-full bg-[#050505] text-white py-12 sm:py-16 lg:py-24 select-none flex flex-col items-center justify-center"
+      className="relative w-full bg-[#050505] pt-23! text-white pb-0 sm:py-16 lg:py-24 select-none flex flex-col items-center justify-center"
     >
       {/* Ambient Background Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px]" />
@@ -130,9 +130,8 @@ export default function ExperienceSection() {
                 ref={(el) => {
                   leftItemRefs.current[index] = el;
                 }}
-                className={`min-h-0 lg:min-h-[60vh] ${
-                  index === 1 ? "lg:justify-end" : "lg:justify-start"
-                } flex flex-col gap-y-2.5 sm:gap-y-3 p-5 sm:p-8 lg:p-0 py-6 sm:py-10 lg:py-16 lg:border border-white/10 lg:border-none rounded-2xl sm:rounded-3xl lg:rounded-none bg-white/[0.02] sm:bg-white/[0.025] lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none`}
+                className={`min-h-0 lg:min-h-[60vh] ${index === 1 ? "lg:justify-end" : "lg:justify-start"
+                  } flex flex-col gap-y-2.5 sm:gap-y-3 p-5 sm:p-8 lg:p-0 py-6 sm:py-10 lg:py-16 lg:border border-white/10 lg:border-none rounded-2xl sm:rounded-3xl lg:rounded-none bg-white/[0.02] sm:bg-white/[0.025] lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none`}
               >
                 {/* Company Name */}
                 <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-1.5 sm:mb-3 leading-snug">
@@ -178,11 +177,10 @@ export default function ExperienceSection() {
                   <img
                     src={item.img}
                     alt={`${item.company} screenshot`}
-                    className={`w-full h-full ${
-                      index === 1
-                        ? "object-contain p-4 sm:p-6 bg-neutral-950"
-                        : "object-cover"
-                    } grayscale contrast-[1.05] brightness-[0.9] group-hover:grayscale-0 transition-all duration-500`}
+                    className={`w-full h-full ${index === 1
+                      ? "object-contain p-4 sm:p-6 bg-neutral-950"
+                      : "object-cover"
+                      } grayscale contrast-[1.05] brightness-[0.9] group-hover:grayscale-0 transition-all duration-500`}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none" />
                 </div>

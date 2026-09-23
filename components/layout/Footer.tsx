@@ -27,7 +27,7 @@ export default function Footer() {
   return (
     <footer
       id="contact"
-      className="bg-[#050505] text-[#f5f5f5] px-6 pt-10! md:px-16 md:pt-12! flex justify-center w-full"
+      className="bg-[#050505] text-[#f5f5f5] px-6! pt-10! md:px-16 md:pt-12! flex justify-center w-full"
     >
       <div className="max-w-[1400px] w-full flex flex-col justify-between h-full">
         {/* Massive Typographic Call to Action */}
@@ -41,7 +41,7 @@ export default function Footer() {
         </div>
 
         {/* Footer Meta & Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6 pt-12! border-t border-[#111111] items-start">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-6 lg:pt-12! pt-6! border-t border-[#111111] items-start">
           {/* Email section */}
           <div className="flex flex-col">
             <span className="text-[10px] uppercase tracking-[0.2em] text-[#888888] mb-1!">
@@ -60,7 +60,7 @@ export default function Footer() {
             <span className="text-[10px] uppercase tracking-[0.2em] text-[#888888] mb-3!">
               Connect
             </span>
-            <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-mono uppercase tracking-wider text-[#888888]">
+            <div className="flex flex-wrap gap-x-3 lg:gap-x-6 gap-y-2 text-sm font-mono uppercase tracking-wider text-[#888888]">
               <a
                 href="https://github.com/Pathan-Faizann"
                 target="_blank"

@@ -852,7 +852,7 @@ export default function WorksSection() {
       {/* ── MOBILE / TABLET VIEW: NATURAL VERTICAL FLOW WITH PROPER GAPS & ZERO SCROLL JUMPING ── */}
       <div className="block lg:hidden w-full bg-[#050505] text-white">
         {/* Mobile About / Statement Intro */}
-        <div className="px-6 py-14 border-b border-[#1c1c1c]/60 max-w-xl mx-auto">
+        <div className="px-6! py-14 border-b border-[#1c1c1c]/60! max-w-xl! mx-auto!">
           <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#888888] block mb-3">
             [ ABOUT ]
           </span>
@@ -865,7 +865,7 @@ export default function WorksSection() {
         </div>
 
         {/* Mobile Projects Section Header */}
-        <div id="projects-mobile" className="px-6 pt-16 pb-8 text-center max-w-xl mx-auto">
+        <div id="projects-mobile" className="px-6! pt-16! pb-8! lg:pt-0 lg:pb-0 text-center max-w-xl mx-auto">
           <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#888888] block mb-2">
             Selected Works
           </span>
@@ -878,7 +878,7 @@ export default function WorksSection() {
         </div>
 
         {/* Mobile Projects Stack with Distinct Gaps */}
-        <div className="px-5 pb-20 space-y-12 sm:space-y-16 max-w-xl mx-auto">
+        <div className="px-5! pb-20 space-y-12! sm:space-y-16 max-w-xl! mx-auto!">
           {PROJECTS.map((project, index) => (
             <div
               key={project.id}
