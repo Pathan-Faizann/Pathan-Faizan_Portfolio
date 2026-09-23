@@ -41,10 +41,10 @@ export default function Footer() {
         </div>
 
         {/* Footer Meta & Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6 pt-12 border-t border-[#111111] items-start">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-6 pt-12! border-t border-[#111111] items-start">
           {/* Email section */}
           <div className="flex flex-col">
-            <span className="text-[10px] uppercase tracking-[0.2em] text-[#888888] mb-3">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-[#888888] mb-1!">
               Direct Inquiry
             </span>
             <a
@@ -57,7 +57,7 @@ export default function Footer() {
 
           {/* Social Links */}
           <div className="flex flex-col">
-            <span className="text-[10px] uppercase tracking-[0.2em] text-[#888888] mb-3">
+            <span className="text-[10px] uppercase tracking-[0.2em] text-[#888888] mb-3!">
               Connect
             </span>
             <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm font-mono uppercase tracking-wider text-[#888888]">
@@ -78,20 +78,20 @@ export default function Footer() {
                 LinkedIn
               </a>
               <a
-                href="https://read.cv"
+                href="/Faizan_Resume.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[#f5f5f5] transition-colors"
               >
-                Read.cv
+                Read CV
               </a>
               <a
-                href="https://twitter.com"
+                href="https://wa.me/919737667990"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[#f5f5f5] transition-colors"
               >
-                Twitter
+                WhatsApp
               </a>
             </div>
           </div>

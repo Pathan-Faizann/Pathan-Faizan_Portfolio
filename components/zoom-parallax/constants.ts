@@ -99,13 +99,13 @@ export const PARALLAX_IMAGES: ParallaxImageConfig[] = [
   },
   {
     id: "bottom-right",
-    src: "/new.jpeg ",
+    src: "/about-new.png",
     alt: "Aurelia Luxury Residences - Architectural Detail",
     className:
       "absolute z-10 scale-50 overflow-hidden border border-white/5 shadow-xl brightness-[200]" +
       "w-[25vw] h-[20vh] left-[63vw] top-[68vh] " +
       "md:w-[21vw] md:h-[24vh] md:left-[64vw] md:top-[66vh] " +
-      "lg:w-[19vw] lg:h-[29vh] lg:left-[66vw] lg:top-[60vh]",
+      "lg:w-[53vw] lg:h-[39vh] lg:left-[50vw] lg:top-[60vh]",
     scaleRange: [1, 2.3],
     xRange: [420, 80], // Fly bottom-right
     yRange: [420, 80],

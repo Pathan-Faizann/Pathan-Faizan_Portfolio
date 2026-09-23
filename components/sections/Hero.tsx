@@ -219,6 +219,7 @@ import React, {
 } from "react";
 import { gsap } from "@/lib/gsap";
 import HeroTitle from "./HeroTitle";
+import DownloadResumeButton from "@/components/ui/DownloadResumeButton";
 import {
   EASE_PORTRAIT,
   EASE_SUBTITLE,
@@ -276,12 +277,12 @@ const Hero = forwardRef<HeroHandle, HeroProps>(function Hero(
         0,
       );
 
-      // Subtitle fades in gently after portrait is mostly revealed
+      // Subtitle & Resume Button fades in gently after portrait is mostly revealed
       tl.fromTo(
         subTextRef.current,
         { opacity: 0, y: 16 },
         {
-          opacity: 0.6,
+          opacity: 1,
           y: 0,
           duration: SUBTITLE_DURATION,
           ease: EASE_SUBTITLE,
@@ -344,13 +345,21 @@ const Hero = forwardRef<HeroHandle, HeroProps>(function Hero(
           <HeroTitle ref={titleRef} />
 
           {/* Sub-title label lines (FULL STACK / DEVELOPER) */}
-          <div className="flex flex-col font-display text-center lg:justify-start justify-center! lg:text-center font-bold tracking-tighter ml-0! lg:ml-16! uppercase leading-[0.85] mt-2! select-none">
+          <div className="flex flex-col font-display text-center lg:text-left items-center lg:items-start font-bold tracking-tighter ml-0! lg:ml-16! uppercase leading-[0.85] mt-2! select-none">
             <span className="block text-3xl sm:text-5xl pl-0 lg:pl-10 md:text-6xl lg:text-[4.5vw] text-[#666666]">
               FULL STACK
             </span>
-            <span className="block text-3xl sm:text-5xl ml-0 lg:ml-10 md:text-6xl lg:text-[4.5vw] text-[#666666] mb-4">
+            <span className="block text-3xl sm:text-5xl ml-0 lg:ml-10 md:text-6xl lg:text-[4.5vw] text-[#666666] mb-6">
               DEVELOPER
             </span>
+
+            {/* Read CV Button - Left-aligned with DEVELOPER */}
+            <div
+              ref={subTextRef}
+              className="ml-0 lg:ml-10 mt-5! flex justify-center lg:justify-start font-sans font-normal normal-case tracking-normal select-auto"
+            >
+              <DownloadResumeButton />
+            </div>
           </div>
         </div>
 
