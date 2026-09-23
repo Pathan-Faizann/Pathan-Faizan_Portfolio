@@ -518,135 +518,116 @@ export default function WorksSection() {
     const strip = stripRef.current;
     if (!wrapper || !sticky || !collage || !strip) return;
 
-    const getZoomPx = () => window.innerHeight * 3;
-    const getHorizPx = () => strip.scrollWidth - window.innerWidth;
-    const getTotalPx = () => getZoomPx() + getHorizPx();
+    const mm = gsap.matchMedia();
 
-    let ctx: gsap.Context | null = null;
+    // DESKTOP ONLY: Cinematic zoom + horizontal pinned slide
+    mm.add("(min-width: 1024px)", () => {
+      const getZoomPx = () => window.innerHeight * 3;
+      const getHorizPx = () => strip.scrollWidth - window.innerWidth;
+      const totalPx = getZoomPx() + getHorizPx();
+      const zoomPx = getZoomPx();
+      const horizPx = getHorizPx();
 
-    const build = () => {
-      ctx?.revert();
+      const zoomFrac = zoomPx / totalPx;
+      const horizFrac = horizPx / totalPx;
 
-      ctx = gsap.context(() => {
-        const zoomPx = getZoomPx();
-        const horizPx = getHorizPx();
-        const totalPx = zoomPx + horizPx;
+      // Initialize strip at starting position
+      gsap.set(strip, { x: 0, force3D: true });
 
-        const zoomFrac = zoomPx / totalPx;
-        const horizFrac = horizPx / totalPx;
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapper,
+          pin: sticky,
+          pinSpacing: true,
+          scrub: 1.2,
+          start: "top top",
+          end: `+=${totalPx}`,
+          invalidateOnRefresh: true,
+        },
+      });
 
-        // Initialize strip at starting position
-        gsap.set(strip, { x: 0, force3D: true });
-
-        const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: wrapper,
-            pin: sticky,
-            pinSpacing: true,
-            scrub: 1.2,
-            start: "top top",
-            end: `+=${totalPx}`,
-            invalidateOnRefresh: true,
-          },
-        });
-
-        // ── PHASE 1: ZOOM ──
-        PARALLAX_IMAGES.forEach((img) => {
-          const el = collage.querySelector<HTMLElement>(
-            `[data-parallax-id="${img.id}"]`,
-          );
-          if (!el) return;
-
-          tl.to(
-            el,
-            {
-              scale: img.scaleRange[1],
-              x: img.xRange[0] * img.depth,
-              y: img.yRange[0] * img.depth,
-              opacity: img.opacityRange[1],
-              ease: "power2.inOut",
-              force3D: true,
-              duration: zoomFrac,
-            },
-            0,
-          );
-        });
-
-        // Scale and reveal the PROJECTS text in sync with the collage zoom
-        const textInner =
-          sticky.querySelector<HTMLElement>("[data-text-inner]");
-        if (textInner) {
-          tl.fromTo(
-            textInner,
-            { scale: 1 / 4.8, opacity: 1 },
-            {
-              scale: 1,
-              opacity: 1,
-              ease: "power2.inOut",
-              force3D: true,
-              duration: zoomFrac,
-            },
-            0,
-          );
-        }
-
-        // Fade out the explore overlay
-        const textOverlay = sticky.querySelector<HTMLElement>(
-          "[data-text-overlay]",
+      // ── PHASE 1: ZOOM ──
+      PARALLAX_IMAGES.forEach((img) => {
+        const el = collage.querySelector<HTMLElement>(
+          `[data-parallax-id="${img.id}"]`,
         );
-        if (textOverlay) {
-          tl.to(
-            textOverlay,
-            {
-              opacity: 0,
-              scale: 0.94,
-              ease: "power1.in",
-              force3D: true,
-              duration: 0.22 * zoomFrac,
-            },
-            0,
-          );
-        }
+        if (!el) return;
 
-        // ── PHASE 2: HORIZONTAL SLIDE ──
         tl.to(
-          strip,
+          el,
           {
-            x: () => -(strip.scrollWidth - window.innerWidth),
-            ease: "none",
+            scale: img.scaleRange[1],
+            x: img.xRange[0] * img.depth,
+            y: img.yRange[0] * img.depth,
+            opacity: img.opacityRange[1],
+            ease: "power2.inOut",
             force3D: true,
-            duration: horizFrac,
-            immediateRender: false,
+            duration: zoomFrac,
           },
-          zoomFrac,
+          0,
         );
       });
-    };
 
-    build();
+      // Scale and reveal the PROJECTS text in sync with the collage zoom
+      const textInner = sticky.querySelector<HTMLElement>("[data-text-inner]");
+      if (textInner) {
+        tl.fromTo(
+          textInner,
+          { scale: 1 / 4.8, opacity: 1 },
+          {
+            scale: 1,
+            opacity: 1,
+            ease: "power2.inOut",
+            force3D: true,
+            duration: zoomFrac,
+          },
+          0,
+        );
+      }
 
-    let resizeTimer: ReturnType<typeof setTimeout>;
-    const onResize = () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(() => {
-        build();
-        ScrollTrigger.refresh();
-      }, 250);
-    };
-    window.addEventListener("resize", onResize);
+      // Fade out the explore overlay
+      const textOverlay = sticky.querySelector<HTMLElement>(
+        "[data-text-overlay]",
+      );
+      if (textOverlay) {
+        tl.to(
+          textOverlay,
+          {
+            opacity: 0,
+            scale: 0.94,
+            ease: "power1.in",
+            force3D: true,
+            duration: 0.22 * zoomFrac,
+          },
+          0,
+        );
+      }
+
+      // ── PHASE 2: HORIZONTAL SLIDE ──
+      tl.to(
+        strip,
+        {
+          x: () => -(strip.scrollWidth - window.innerWidth),
+          ease: "none",
+          force3D: true,
+          duration: horizFrac,
+          immediateRender: false,
+        },
+        zoomFrac,
+      );
+    });
 
     return () => {
-      clearTimeout(resizeTimer);
-      window.removeEventListener("resize", onResize);
-      ctx?.revert();
+      mm.revert();
     };
   }, []);
 
   return (
     <div ref={wrapperRef} id="works" className="relative bg-[#050505]">
+      {/* ── DESKTOP VIEW: PINNED ZOOM & HORIZONTAL SLIDE ── */}
       <div
         ref={stickyRef}
-        className="w-full h-screen relative overflow-hidden bg-[#050505]"
+        className="hidden lg:block w-full h-screen relative overflow-hidden bg-[#050505]"
       >
         <div
           ref={stripRef}
@@ -769,7 +750,7 @@ export default function WorksSection() {
                             src={img.src}
                             alt={img.alt}
                             fill
-                            sizes="(max-width: 768px) 30vw, 20vw"
+                            sizes="(max-width: 1024px) 100vw, 60vw"
                             className="object-cover filter grayscale contrast-[1.12] brightness-[0.88] transition-all duration-[1.8s] ease-[cubic-bezier(0.76,0,0.24,1)] group-hover:grayscale-0 group-hover:scale-105 group-hover:brightness-100 group-hover:contrast-105"
                           />
                         )}
@@ -809,7 +790,7 @@ export default function WorksSection() {
             </div>
           </div>
 
-          {/* ── PANELS 2-6: CASE STUDIES ── */}
+          {/* ── PANELS 2-6: CASE STUDIES (DESKTOP) ── */}
           {PROJECTS.map((project, index) => (
             <div
               key={project.id}
@@ -835,7 +816,7 @@ export default function WorksSection() {
                   {/* Project Info */}
                   <div className="lg:col-span-5 flex flex-col justify-center h-full lg:pl-12">
                     {/* Industry */}
-                    <span className="text-[11px] font-mono uppercase tracking-[0.28em] text-[#7f7f7f] mb-2! sm:mb-4!">
+                    <span className="text-[11px] font-mono uppercase tracking-[0.28em] text-[#7f7f7f] mb-2 sm:mb-4">
                       {project.industry}
                     </span>
 
@@ -845,7 +826,7 @@ export default function WorksSection() {
                     </h3>
 
                     {/* Description */}
-                    <p className="max-w-md text-sm md:text-[15px] leading-normal text-[#8c8c8c] my-3! sm:my-10!">
+                    <p className="max-w-md text-sm md:text-[15px] leading-normal text-[#8c8c8c] my-3 sm:my-10">
                       {project.description}
                     </p>
 
@@ -861,6 +842,84 @@ export default function WorksSection() {
                       </a>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* ── MOBILE / TABLET VIEW: NATURAL VERTICAL FLOW WITH PROPER GAPS & ZERO SCROLL JUMPING ── */}
+      <div className="block lg:hidden w-full bg-[#050505] text-white">
+        {/* Mobile About / Statement Intro */}
+        <div className="px-6 py-14 border-b border-[#1c1c1c]/60 max-w-xl mx-auto">
+          <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#888888] block mb-3">
+            [ ABOUT ]
+          </span>
+          <p className="text-lg sm:text-xl font-display font-semibold text-[#f5f5f5] leading-snug mb-4">
+            Building modern digital experiences with a strong focus on quality, performance, and thoughtful execution.
+          </p>
+          <p className="text-xs sm:text-sm font-mono text-[#888888] leading-relaxed uppercase tracking-wider">
+            Experienced working on live client projects, collaborating across teams, and transforming ideas into reliable products.
+          </p>
+        </div>
+
+        {/* Mobile Projects Section Header */}
+        <div id="projects-mobile" className="px-6 pt-16 pb-8 text-center max-w-xl mx-auto">
+          <span className="text-[10px] font-mono uppercase tracking-[0.3em] text-[#888888] block mb-2">
+            Selected Works
+          </span>
+          <h2 className="text-4xl sm:text-5xl font-display font-black uppercase text-[#ECECEC] tracking-tight">
+            PROJECTS
+          </h2>
+          <p className="text-[10px] sm:text-xs font-mono uppercase tracking-[0.2em] text-[#ECECEC]/40 mt-2">
+            Curated Digital Experiences
+          </p>
+        </div>
+
+        {/* Mobile Projects Stack with Distinct Gaps */}
+        <div className="px-5 pb-20 space-y-12 sm:space-y-16 max-w-xl mx-auto">
+          {PROJECTS.map((project, index) => (
+            <div
+              key={project.id}
+              className="bg-[#0b0b0b] border border-[#1c1c1c] rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+            >
+              {/* Image Container */}
+              <div className="w-full aspect-[16/10] relative bg-[#111111] overflow-hidden">
+                <Image
+                  src={project.image}
+                  alt={project.title}
+                  fill
+                  sizes="100vw"
+                  priority={index === 0}
+                  className="object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+              </div>
+
+              {/* Info Container */}
+              <div className="p-6 sm:p-8 flex flex-col">
+                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#7f7f7f] mb-2">
+                  {project.industry}
+                </span>
+
+                <h3 className="font-display text-2xl font-black uppercase tracking-tight text-[#f5f5f5] leading-tight mb-3">
+                  {project.title}
+                </h3>
+
+                <p className="text-xs sm:text-sm leading-relaxed text-[#8c8c8c] mb-6">
+                  {project.description}
+                </p>
+
+                <div className="border-t border-[#1c1c1c] pt-4 mt-auto">
+                  <a
+                    target="_blank"
+                    href={project.href}
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#f5f5f5] hover:text-white transition-colors"
+                  >
+                    {project.website}
+                  </a>
                 </div>
               </div>
             </div>

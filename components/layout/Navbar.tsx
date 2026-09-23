@@ -37,14 +37,26 @@ export default function Navbar() {
         }
       }
     } else if (id === "projects") {
-      const el = document.getElementById("works");
-      if (el) {
-        // 3 * innerHeight is the exact zoom depth in WorksSection where PROJECTS text is scaled 1.0 full on screen
-        const targetY = el.getBoundingClientRect().top + window.scrollY + window.innerHeight * 3;
-        if (lenis) {
-          lenis.scrollTo(targetY, { duration: 1.4 });
-        } else {
-          window.scrollTo({ top: targetY, behavior: "smooth" });
+      if (window.innerWidth >= 1024) {
+        const el = document.getElementById("works");
+        if (el) {
+          // Desktop: 3 * innerHeight is the exact zoom depth where PROJECTS text is scaled
+          const targetY = el.getBoundingClientRect().top + window.scrollY + window.innerHeight * 3;
+          if (lenis) {
+            lenis.scrollTo(targetY, { duration: 1.4 });
+          } else {
+            window.scrollTo({ top: targetY, behavior: "smooth" });
+          }
+        }
+      } else {
+        const el = document.getElementById("projects-mobile") || document.getElementById("works");
+        if (el) {
+          const targetY = el.getBoundingClientRect().top + window.scrollY;
+          if (lenis) {
+            lenis.scrollTo(targetY, { duration: 1.4 });
+          } else {
+            window.scrollTo({ top: targetY, behavior: "smooth" });
+          }
         }
       }
     } else {
