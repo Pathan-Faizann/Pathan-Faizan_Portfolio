@@ -852,11 +852,11 @@ export default function WorksSection() {
       {/* ── MOBILE / TABLET VIEW: NATURAL VERTICAL FLOW WITH PROPER GAPS & ZERO SCROLL JUMPING ── */}
       <div className="block lg:hidden w-full bg-[#050505] text-white">
         {/* Mobile About / Statement Intro */}
-        <div className="px-6! py-14 border-b border-[#1c1c1c]/60! max-w-xl! mx-auto!">
-          <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#888888] block mb-3">
+        <div className="px-6! py-14! border-b border-[#1c1c1c]/60! max-w-xl! mx-auto!">
+          <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#888888] block mb-3!">
             [ ABOUT ]
           </span>
-          <p className="text-lg sm:text-xl font-display font-semibold text-[#f5f5f5] leading-snug mb-4">
+          <p className="text-lg sm:text-xl font-display font-semibold text-[#f5f5f5] leading-snug mb-4!">
             Building modern digital experiences with a strong focus on quality, performance, and thoughtful execution.
           </p>
           <p className="text-xs sm:text-sm font-mono text-[#888888] leading-relaxed uppercase tracking-wider">
@@ -877,49 +877,77 @@ export default function WorksSection() {
           </p>
         </div>
 
-        {/* Mobile Projects Stack with Distinct Gaps */}
-        <div className="px-5! pb-20 space-y-12! sm:space-y-16 max-w-xl! mx-auto!">
+        {/* Mobile Projects Stacking Deck */}
+        <div className="relative px-4! sm:px-6! pb-28! max-w-xl! mx-auto!">
           {PROJECTS.map((project, index) => (
             <div
               key={project.id}
-              className="bg-[#0b0b0b] border border-[#1c1c1c] rounded-2xl overflow-hidden shadow-2xl flex flex-col"
+              style={{
+                top: `calc(72px + ${index * 15}px)`,
+                zIndex: index + 1,
+              }}
+              className="sticky! mb-10! sm:mb-14! last:mb-0! rounded-2xl! bg-[#0c0c0c] border border-white/10! border-t-white/20 shadow-[0_-12px_30px_rgba(0,0,0,0.9),0_20px_40px_rgba(0,0,0,0.85)] overflow-hidden transition-all duration-300 flex flex-col will-change-transform"
             >
+              {/* Card Top Tab Header (creates visible stacked deck echelon) */}
+              <div className="flex items-center justify-between px-4! py-2.5! bg-[#121212] border-b border-white/[0.06]">
+                <div className="flex items-center gap-2!">
+                  <span className="w-1.5! h-1.5! rounded-full bg-white/40" />
+                  <span className="text-[10px]! font-mono tracking-widest text-[#888888] uppercase">
+                    0{index + 1} / 0{PROJECTS.length}
+                  </span>
+                </div>
+                <span className="text-[9px] font-mono uppercase tracking-[0.2em] text-[#777777] truncate max-w-[180px]">
+                  {project.industry}
+                </span>
+              </div>
+
               {/* Image Container */}
-              <div className="w-full aspect-[16/10] relative bg-[#111111] overflow-hidden">
+              <div className="w-full! aspect-[16/9.5]! relative bg-[#111111] overflow-hidden">
                 <Image
                   src={project.image}
                   alt={project.title}
                   fill
-                  sizes="100vw"
+                  sizes="(max-width: 768px) 100vw, 600px"
                   priority={index === 0}
                   className="object-cover"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent pointer-events-none" />
               </div>
 
               {/* Info Container */}
-              <div className="p-6 sm:p-8 flex flex-col">
-                <span className="text-[10px] font-mono uppercase tracking-[0.25em] text-[#7f7f7f] mb-2">
-                  {project.industry}
-                </span>
-
-                <h3 className="font-display text-2xl font-black uppercase tracking-tight text-[#f5f5f5] leading-tight mb-3">
+              <div className="p-5! flex flex-col">
+                <h3 className="font-display text-xl sm:text-2xl! font-black uppercase tracking-tight text-[#f5f5f5] leading-tight mb-2!">
                   {project.title}
                 </h3>
 
-                <p className="text-xs sm:text-sm leading-relaxed text-[#8c8c8c] mb-6">
+                <p className="text-xs sm:text-[13px] leading-relaxed text-[#8c8c8c] line-clamp-3 mb-4!">
                   {project.description}
                 </p>
 
-                <div className="border-t border-[#1c1c1c] pt-4 mt-auto">
+                <div className="border-t border-white/[0.08] pt-3.5! mt-auto flex items-center justify-between">
                   <a
                     target="_blank"
                     href={project.href}
                     rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 text-xs uppercase tracking-[0.25em] text-[#f5f5f5] hover:text-white transition-colors"
+                    className="inline-flex items-center gap-2 text-xs! font-mono uppercase tracking-[0.2em] text-white hover:text-white/70 transition-colors"
                   >
-                    {project.website}
+                    <span>Visit Project</span>
+                    <svg
+                      className="w-3.5! h-3.5! transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2.2"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    >
+                      <line x1="7" y1="17" x2="17" y2="7" />
+                      <polyline points="7 7 17 7 17 17" />
+                    </svg>
                   </a>
+                  <span className="text-[10px] font-mono uppercase tracking-wider text-[#555555]">
+                    Case Study
+                  </span>
                 </div>
               </div>
             </div>

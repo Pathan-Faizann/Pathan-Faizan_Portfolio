@@ -97,7 +97,7 @@ export default function Navbar() {
       </div>
 
       {/* Navigation Links */}
-      <nav className="flex flex-wrap gap-4 sm:gap-6 md:gap-10 pointer-events-auto ml-auto md:ml-0">
+      <nav className="flex flex-wrap gap-3! justify-center items-center w-full sm:gap-6 md:gap-10 pointer-events-auto ml-auto md:ml-0">
         {navItems.map((item) => (
           <button
             key={item.id}

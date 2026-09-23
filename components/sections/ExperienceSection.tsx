@@ -160,16 +160,7 @@ export default function ExperienceSection() {
                 </p>
 
                 {/* Tags / Chips */}
-                <div className="flex flex-wrap gap-2 sm:gap-2.5 max-w-xl mb-4 sm:mb-6 lg:mb-0">
-                  {item.tags.map((tag, tagIndex) => (
-                    <span
-                      key={tagIndex}
-                      className="px-3 py-1 sm:px-3.5 sm:py-1.5 text-[10px] sm:text-[11px] uppercase tracking-wider font-mono text-white/70 border border-white/15 rounded-full bg-white/[0.03] backdrop-blur-sm"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
+
 
                 {/* MOBILE ONLY INLINE IMAGE */}
                 <div className="mt-4 sm:mt-6 lg:hidden w-full aspect-[16/10] sm:aspect-[16/9] max-w-[500px] rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-neutral-900/80 shadow-2xl relative group">
