@@ -144,7 +144,7 @@ export default function ExperienceSection() {
                 </p>
 
                 {/* Meta Bar */}
-                <div className="flex flex-wrap items-center gap-2.5 sm:gap-4 lg:gap-6 text-[10px] sm:text-xs uppercase tracking-widest text-white/40 mb-4 sm:mb-6 border-y border-white/10 py-2.5 sm:py-3.5 max-w-xl w-full">
+                <div className="flex flex-wrap items-center gap-2.5! sm:gap-4! lg:gap-6! text-[10px] sm:text-xs uppercase tracking-widest text-white/40 mb-4! sm:mb-6! border-y border-white/10 py-2.5! sm:py-3.5! max-w-xl w-full">
                   <span className="text-white/60 font-mono font-semibold">
                     {item.number}
                   </span>
