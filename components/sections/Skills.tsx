@@ -127,11 +127,11 @@ function SkillCard({
          
         </div>
 
-        <div className="flex flex-wrap gap-3 sm:gap-3!">
+        <div className="flex flex-wrap gap-2 sm:gap-3.5!">
           {cat.skills.map((skill) => (
             <span
               key={skill}
-              className="relative px-4! py-2.5! text-xs sm:text-[14px]! font-mono uppercase tracking-wider text-white/90 rounded-full border border-white/15 border-t-white/30 bg-gradient-to-b from-white/[0.08] to-white/[0.02] backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_14px_rgba(0,0,0,0.5)] transition-all duration-300 hover:bg-white hover:text-black hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] active:scale-95 cursor-default select-none inline-flex items-center"
+              className="relative px-4! py-2.5! text-[12px] sm:text-[14px]! font-mono uppercase tracking-wider text-white/90 rounded-full border border-white/10 border-t-white/30 bg-gradient-to-b from-white/[0.08] to-white/[0.02] backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_14px_rgba(0,0,0,0.5)] transition-all duration-300 hover:bg-white hover:text-black hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] active:scale-95 cursor-default select-none inline-flex items-center"
             >
               {skill}
             </span>
@@ -211,7 +211,7 @@ export function Skills() {
     <section
       ref={sectionRef}
       id="skills"
-      className="relative w-full bg-[#050505] text-[#f5f5f5] px-6! py-20! sm:py-28! md:px-12! md:py-36! lg:px-16! lg:py-40! overflow-hidden flex justify-center border-b border-[#111111]"
+      className="relative w-full bg-[#050505] text-[#f5f5f5] px-6! py-15! sm:py-28! md:px-12! md:py-36! lg:px-16! lg:py-40! overflow-hidden flex justify-center border-b border-[#111111]"
     >
       {/* Ambient Background Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px]" />

@@ -47,7 +47,7 @@ export default function Expertise() {
   const [expandedIdx, setExpandedIdx] = useState<number | null>(0); // Default open first
 
   return (
-    <section className="bg-[#050505] text-[#f5f5f5] px-6! py-28! md:px-16 md:py-48 relative border-b border-[#111111] flex justify-center w-full">
+    <section className="bg-[#050505] hidden lg:block text-[#f5f5f5] px-6! py-2! md:px-16 md:py-48 relative border-b border-[#111111] flex justify-center w-full">
       <div className="max-w-[1400px]! w-full grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
         {/* Left column: Tagline & info */}
         <div className="lg:col-span-4 flex flex-col justify-between">

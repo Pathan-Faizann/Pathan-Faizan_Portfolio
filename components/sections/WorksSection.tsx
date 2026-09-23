@@ -500,12 +500,18 @@ const PROJECTS = [
   },
 ];
 
+const ABOUT_PARA_1 =
+  "Building modern digital experiences with a strong focus on quality, performance, and thoughtful execution.";
+const ABOUT_PARA_2 =
+  "Experienced working on live client projects, collaborating across teams, and transforming ideas into reliable products.";
+
 export default function WorksSection() {
   const [isMounted, setIsMounted] = useState(false);
   const wrapperRef = useRef<HTMLDivElement>(null);
   const stickyRef = useRef<HTMLDivElement>(null);
   const collageRef = useRef<HTMLDivElement>(null);
   const stripRef = useRef<HTMLDivElement>(null);
+  const mobileAboutRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     setIsMounted(true);
@@ -617,6 +623,52 @@ export default function WorksSection() {
       );
     });
 
+    // MOBILE / TABLET ONLY: Continuous cascading word-by-word reveal for About statement
+    mm.add("(max-width: 1023px)", () => {
+      const mobileAbout = mobileAboutRef.current;
+      if (!mobileAbout) return;
+
+      const badge = mobileAbout.querySelector(".about-badge");
+      const words = mobileAbout.querySelectorAll(".about-revealing-word");
+
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: mobileAbout,
+          start: "top 85%",
+          once: true,
+        },
+      });
+
+      if (badge) {
+        tl.fromTo(
+          badge,
+          { opacity: 0, y: 12, filter: "blur(4px)" },
+          { opacity: 1, y: 0, filter: "blur(0px)", duration: 0.5, ease: "power2.out" },
+          0,
+        );
+      }
+
+      if (words.length > 0) {
+        tl.fromTo(
+          words,
+          {
+            yPercent: 110,
+            opacity: 0,
+            filter: "blur(4px)",
+          },
+          {
+            yPercent: 0,
+            opacity: 1,
+            filter: "blur(0px)",
+            duration: 0.6,
+            stagger: 0.022,
+            ease: "power3.out",
+          },
+          0.12,
+        );
+      }
+    });
+
     return () => {
       mm.revert();
     };
@@ -709,7 +761,7 @@ export default function WorksSection() {
 
                     {img.content === "statement" && (
                       <div className="flex h-full w-full items-center text-[#ECECEC] select-none">
-                        <p className="w-full md:w-[min(30vw,calc(100vw-4rem))]! text-[11px] sm:text-xs md:text-[clamp(1rem,1.65vw,1.45rem)] lg:pb-18! font-normal leading-tight md:leading-[1.2] tracking-[0.01em]">
+                        <p className="w-full md:w-[min(30vw,calc(100vw-4rem))]! text-[11px] sm:text-xs md:text-[clamp(1rem,1.65vw,1.45rem)] lg:pb-18! font-thin! leading-tight md:leading-[1.2] tracking-[0.01em]">
                           Building modern digital experiences with a strong
                           focus on quality, performance, and thoughtful
                           execution. Experienced working on live client
@@ -851,16 +903,37 @@ export default function WorksSection() {
 
       {/* ── MOBILE / TABLET VIEW: NATURAL VERTICAL FLOW WITH PROPER GAPS & ZERO SCROLL JUMPING ── */}
       <div className="block lg:hidden w-full bg-[#050505] text-white">
-        {/* Mobile About / Statement Intro */}
-        <div className="px-6! py-14! border-b border-[#1c1c1c]/60! max-w-xl! mx-auto!">
-          <span className="text-[11px] font-mono uppercase tracking-[0.25em] text-[#888888] block mb-3!">
+        {/* Mobile About / Statement Intro with Awwwards-style word-by-word cascading reveal */}
+        <div
+          ref={mobileAboutRef}
+          className="px-6! py-14! border-b border-[#1c1c1c]/60! max-w-xl! mx-auto!"
+        >
+          <span className="about-badge text-[11px] font-mono uppercase tracking-[0.25em]! text-[#888888] block mb-3! will-change-transform">
             [ ABOUT ]
           </span>
           <p className="text-lg sm:text-xl font-display font-semibold text-[#f5f5f5] leading-snug mb-4!">
-            Building modern digital experiences with a strong focus on quality, performance, and thoughtful execution.
+            {ABOUT_PARA_1.split(" ").map((word, i) => (
+              <span
+                key={i}
+                className="inline-block overflow-hidden mr-[0.28em]! py-[2px]! -my-[2px]! align-top"
+              >
+                <span className="about-revealing-word inline-block will-change-transform">
+                  {word}
+                </span>
+              </span>
+            ))}
           </p>
           <p className="text-xs sm:text-sm font-mono text-[#888888] leading-relaxed uppercase tracking-wider">
-            Experienced working on live client projects, collaborating across teams, and transforming ideas into reliable products.
+            {ABOUT_PARA_2.split(" ").map((word, i) => (
+              <span
+                key={i}
+                className="inline-block overflow-hidden mr-[0.28em] py-[2px] -my-[2px] align-top"
+              >
+                <span className="about-revealing-word inline-block will-change-transform">
+                  {word}
+                </span>
+              </span>
+            ))}
           </p>
         </div>
 
@@ -878,7 +951,7 @@ export default function WorksSection() {
         </div>
 
         {/* Mobile Projects Stacking Deck */}
-        <div className="relative px-4! sm:px-6! pb-28! max-w-xl! mx-auto!">
+        <div className="relative px-4! sm:px-6! pb-16! max-w-xl! mx-auto!">
           {PROJECTS.map((project, index) => (
             <div
               key={project.id}

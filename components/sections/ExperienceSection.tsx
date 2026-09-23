@@ -30,8 +30,8 @@ const experiences: ExperienceItem[] = [
     number: "02",
     company: "Parashift Technologies",
     location: "Jogeshwari, Mumbai",
-    role: "Frontend Developer",
-    duration: "3 months, Current",
+    role: "Full Stack Developer",
+    duration: "Current",
     description:
       "Building modern user interfaces using Next.js, TypeScript, Tailwind CSS, and Framer Motion. Focused on responsive layouts, reusable component architecture, smooth animations, and delivering polished user experiences for production applications.",
     img: "/PSLogo.svg",
@@ -107,15 +107,15 @@ export default function ExperienceSection() {
 
       <div className="max-w-[1300px] w-full mx-auto px-6! sm:px-6 lg:px-0 relative z-10 flex justify-center flex-col items-center">
         {/* SECTION HEADER - Centered */}
-        <div className="flex flex-col items-center text-start sm:text-start max-w-8xl mx-auto pb-10! sm:pb-12 lg:pb-16 mb-8 sm:mb-12 lg:mb-16 w-full">
-          <div className="flex items-center gap-2.5 sm:gap-3 mb-3! sm:mb-4">
+        <div className="flex flex-col items-center text-start sm:text-start max-w-8xl mx-auto pb-10! sm:pb-12 lg:pb-16 mb-5 sm:mb-12 lg:mb-16 w-full">
+          <div className="flex hidden items-center gap-2.5 sm:gap-3 mb-3! sm:mb-4">
             <span className="w-2 h-2 rounded-full bg-white/60" />
             <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.3em] text-white/50">
               [ EXPERIENCE ]
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-light tracking-tight text-white leading-[1.08]">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white text-left w-full leading-[1.08]">
             Industry Experience
           </h2>
         </div>
@@ -136,6 +136,7 @@ export default function ExperienceSection() {
                 {/* Company Name */}
                 <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-1.5 sm:mb-3 leading-snug">
                   {item.company}
+                  <span className="w-[100%]! hidden pt-0.5 h-[1px]! bg-white/80! block"></span>
                 </h3>
 
                 {/* Role */}
@@ -144,10 +145,8 @@ export default function ExperienceSection() {
                 </p>
 
                 {/* Meta Bar */}
-                <div className="flex flex-wrap items-center gap-2.5! sm:gap-4! lg:gap-6! text-[10px] sm:text-xs uppercase tracking-widest text-white/40 mb-4! sm:mb-6! border-y border-white/10 py-2.5! sm:py-3.5! max-w-xl w-full">
-                  <span className="text-white/60 font-mono font-semibold">
-                    {item.number}
-                  </span>
+                <div className="flex flex-wrap items-center gap-2.5! sm:gap-4! lg:gap-6! text-[10px] sm:text-xs uppercase tracking-widest text-white/40 mb-1! sm:mb-6! border-y border-white/10 py-2.5! sm:py-3.5! max-w-xl w-full">
+                  
                   <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-white/20" />
                   <span>{item.location}</span>
                   <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-white/20" />
