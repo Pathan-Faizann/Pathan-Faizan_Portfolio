@@ -3,42 +3,75 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
+// const EXPERTISES = [
+//   {
+//     num: "01",
+//     title: "Frontend Architecture",
+//     description:
+//       "Engineering robust React, Next.js, and TypeScript architectures. Designing scalable codebases with automated testing, optimized state management, and semantic SEO frameworks.",
+//     skills: [
+//       "Next.js (App Router)",
+//       "TypeScript",
+//       "Performance Tuning",
+//       "Scalable APIs",
+//     ],
+//   },
+//   {
+//     num: "02",
+//     title: "Motion Design & UI",
+//     description:
+//       "Crafting immersive micro-interactions and screen transitions. Bridging the gap between design and development using GSAP, Framer Motion, and custom WebGL scripts.",
+//     skills: [
+//       "GSAP / ScrollTrigger",
+//       "Framer Motion",
+//       "Interactive Canvas",
+//       "Bezier Motion",
+//     ],
+//   },
+//   {
+//     num: "03",
+//     title: "Creative Direction",
+//     description:
+//       "Defining high-end visual systems, typography-first layouts, and brand assets that position products at the absolute pinnacle of luxury and editorial design.",
+//     skills: [
+//       "Typographic Direction",
+//       "Visual Architecture",
+//       "Brand Assets",
+//       "Creative Guidelines",
+//     ],
+//   },
+// ];
 const EXPERTISES = [
   {
     num: "01",
-    title: "Frontend Architecture",
+    title: "Frontend Engineering & UI",
     description:
-      "Engineering robust React, Next.js, and TypeScript architectures. Designing scalable codebases with automated testing, optimized state management, and semantic SEO frameworks.",
+      "Building dynamic, highly responsive, and optimized user interfaces. Utilizing React.js and Next.js with TypeScript to create seamless web experiences with smooth animations.",
     skills: [
-      "Next.js (App Router)",
+      "React.js & Next.js",
       "TypeScript",
-      "Performance Tuning",
-      "Scalable APIs",
+      "Tailwind CSS",
+      "Framer Motion",
     ],
   },
   {
     num: "02",
-    title: "Motion Design & UI",
+    title: "Backend Architecture & APIs",
     description:
-      "Crafting immersive micro-interactions and screen transitions. Bridging the gap between design and development using GSAP, Framer Motion, and custom WebGL scripts.",
+      "Designing robust and scalable server-side applications. Implementing structured MVC architectures, secure authentication systems (JWT/OAuth), and optimized RESTful APIs for production environments.",
     skills: [
-      "GSAP / ScrollTrigger",
-      "Framer Motion",
-      "Interactive Canvas",
-      "Bezier Motion",
+      "Node.js & Express.js",
+      "NestJS Architecture",
+      "Secure Authentication",
+      "API Optimization",
     ],
   },
   {
     num: "03",
-    title: "Creative Direction",
+    title: "Database Management & ORM",
     description:
-      "Defining high-end visual systems, typography-first layouts, and brand assets that position products at the absolute pinnacle of luxury and editorial design.",
-    skills: [
-      "Typographic Direction",
-      "Visual Architecture",
-      "Brand Assets",
-      "Creative Guidelines",
-    ],
+      "Architecting efficient data models and managing complex queries across relational and NoSQL databases. Ensuring fast data retrieval and seamless integrations using modern ORMs.",
+    skills: ["PostgreSQL", "MongoDB", "Prisma ORM", "Data Modeling"],
   },
 ];
 
@@ -47,8 +80,8 @@ export default function Expertise() {
   const [expandedIdx, setExpandedIdx] = useState<number | null>(0); // Default open first
 
   return (
-    <section className="bg-[#050505] hidden lg:block text-[#f5f5f5] px-6! py-2! md:px-16 md:py-48 relative border-b border-[#111111] flex justify-center w-full">
-      <div className="max-w-[1400px]! w-full grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
+    <section className="bg-[#050505] hidden lg:block text-[#f5f5f5] px-6! py-2! md:px-16! md:py-48 relative border-b border-[#111111] flex justify-center w-full">
+      <div className="max-w-[1350px]! w-full grid grid-cols-1 lg:grid-cols-12 gap-16 lg:gap-8">
         {/* Left column: Tagline & info */}
         <div className="lg:col-span-4 flex flex-col justify-between">
           <div>
@@ -62,7 +95,7 @@ export default function Expertise() {
               Meticulously building performant solutions for discerning clients.
             </p>
           </div>
-          <div className="hidden lg:block h-[1px] w-20 bg-[#222222] mt-12" />
+          {/* <div className="hidden lg:block h-[1px] w-20 bg-[#222222] mt-12" /> */}
         </div>
 
         {/* Right column: Interactive list */}
@@ -109,7 +142,7 @@ export default function Expertise() {
                       transition={{ duration: 0.6, ease: [0.76, 0, 0.24, 1] }}
                       className="overflow-hidden flex flex-col lg:flex-row gap-6 justify-between pl-6 md:pl-14 pr-4"
                     >
-                      <p className="text-sm font-sans leading-relaxed text-[#888888] max-w-md">
+                      <p className="text-sm lg:ps-[6.5%]! font-sans leading-relaxed text-[#888888] max-w-md">
                         {item.description}
                       </p>
 

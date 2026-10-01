@@ -35,6 +35,7 @@ const SKILL_CATEGORIES = [
       "Node.js",
       "Express.js",
       "MongoDB",
+      "Mongoose",
       "PostgreSQL",
       "Prisma",
       "JWT",
@@ -46,7 +47,7 @@ const SKILL_CATEGORIES = [
     number: "03",
     title: "Tools & DevOps",
     highlight: "Workflow & Cloud",
-   
+
     skills: [
       "Git",
       "GitHub",
@@ -117,15 +118,11 @@ function SkillCard({
         <h3 className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#f5f5f5] mb-3! group-hover:text-white transition-colors">
           {cat.title}
         </h3>
-
-    
       </div>
 
       {/* Card Skills Badges */}
       <div>
-        <div className="flex items-center justify-between mb-3.5! border-t border-white/[0.06] pt-4!">
-         
-        </div>
+        <div className="flex items-center justify-between mb-3.5! border-t border-white/[0.06] pt-4!"></div>
 
         <div className="flex flex-wrap gap-2 sm:gap-3.5!">
           {cat.skills.map((skill) => (
@@ -170,7 +167,7 @@ export function Skills() {
               toggleActions: "play none none none",
               once: true,
             },
-          }
+          },
         );
       }
 
@@ -199,7 +196,7 @@ export function Skills() {
               toggleActions: "play none none none",
               once: true,
             },
-          }
+          },
         );
       }
     }, sectionRef);
@@ -221,20 +218,24 @@ export function Skills() {
 
       <div className="max-w-[1400px] w-full relative z-10! flex flex-col">
         {/* Section Header */}
-        <div ref={headerRef} className="flex flex-col items-start mb-12! sm:mb-16! md:mb-20!">
-          <div className="flex items-center gap-2.5! mb-3.5!">
+        <div
+          ref={headerRef}
+          className="flex flex-col items-start mb-12! sm:mb-16! md:mb-20!"
+        >
+          {/* <div className="flex items-center gap-2.5! mb-3.5!">
             <span className="w-1.5! h-1.5! rounded-full bg-white/40 animate-pulse" />
             <span className="text-[10px] sm:text-[11px] uppercase font-mono tracking-[0.28em] text-[#888888]">
               TECHNICAL ARSENAL
             </span>
-          </div>
+          </div> */}
 
           <h2 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#f5f5f5] leading-[0.95] mb-4!">
             SKILLS &amp; CAPABILITIES
           </h2>
 
           <p className="max-w-xl text-xs sm:text-sm font-mono text-[#777777] leading-relaxed uppercase tracking-wider">
-            Modern technologies, frameworks &amp; developer tools I utilize to craft production-grade digital products.
+            Modern technologies, frameworks &amp; developer tools I utilize to
+            craft production-grade digital products.
           </p>
         </div>
 

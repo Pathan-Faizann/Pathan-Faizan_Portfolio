@@ -16,25 +16,14 @@ interface ExperienceItem {
 
 const experiences: ExperienceItem[] = [
   {
-    number: "01",
-    company: "INAI Worlds Pvt. Ltd.",
-    location: "Surat, Gujarat",
-    role: "MERN Stack Developer Intern",
-    duration: "3 Months",
-    description:
-      "Worked on production-ready frontend pages and backend REST APIs while collaborating with the development team. Contributed to real-world application features, API integration, database operations, debugging, and continuous improvements across the MERN stack.",
-    img: "/company_inai.png",
-    tags: ["MERN", "REST APIs", "MongoDB", "Express", "Team Collaboration"],
-  },
-  {
     number: "02",
     company: "Parashift Technologies",
     location: "Jogeshwari, Mumbai",
     role: "Full Stack Developer",
-    duration: "Current",
+    duration: "May,2026 - Current",
     description:
       "Building modern user interfaces using Next.js, TypeScript, Tailwind CSS, and Framer Motion. Focused on responsive layouts, reusable component architecture, smooth animations, and delivering polished user experiences for production applications.",
-    img: "/PSLogo.svg",
+    img: "/pslogo.png",
     tags: [
       "Next.js",
       "TypeScript",
@@ -42,6 +31,17 @@ const experiences: ExperienceItem[] = [
       "Framer Motion",
       "Responsive UI",
     ],
+  },
+  {
+    number: "01",
+    company: "INAI Worlds Pvt. Ltd.",
+    location: "Surat, Gujarat",
+    role: "MERN Stack Developer Intern",
+    duration: "Dec,2025 - April,2026 ",
+    description:
+      "Worked on production-ready frontend pages and backend REST APIs while collaborating with the development team. Contributed to real-world application features, API integration, database operations, debugging, and continuous improvements across the MERN stack.",
+    img: "/INAI WORLDS Corporate Logo on Grey Waves.png",
+    tags: ["MERN", "REST APIs", "MongoDB", "Express", "Team Collaboration"],
   },
 ];
 
@@ -105,9 +105,9 @@ export default function ExperienceSection() {
       {/* Ambient Background Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px]" />
 
-      <div className="max-w-[1300px] w-full mx-auto px-6! sm:px-6 lg:px-0 relative z-10 flex justify-center flex-col items-center">
+      <div className="max-w-[1400px] w-full mx-auto px-6! sm:px-6 lg:px-0 relative z-10 flex justify-center flex-col items-center">
         {/* SECTION HEADER - Centered */}
-        <div className="flex flex-col items-center text-start sm:text-start max-w-8xl mx-auto pb-10! sm:pb-12 lg:pb-16 mb-5 sm:mb-12 lg:mb-16 w-full">
+        <div className="flex flex-col items-center text-start sm:text-start mx-auto pb-10! sm:pb-1 lg:pb-1! mb-5 sm:mb-12 lg:mb-2! w-full">
           <div className="flex hidden items-center gap-2.5 sm:gap-3 mb-3! sm:mb-4">
             <span className="w-2 h-2 rounded-full bg-white/60" />
             <span className="font-mono text-[10px] sm:text-xs uppercase tracking-[0.3em] text-white/50">
@@ -115,13 +115,13 @@ export default function ExperienceSection() {
             </span>
           </div>
 
-          <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white text-left w-full leading-[1.08]">
+          <h2 className="text-3xl sm:text-4xl md:text-[72px] font-bold tracking-tight text-white text-left w-full leading-[1.08]">
             Industry Experience
           </h2>
         </div>
 
         {/* MAIN LAYOUT GRID */}
-        <div className="w-full lg:mt-42! grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-8 items-start relative">
+        <div className="w-full lg:mt-22! grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-12 lg:gap-8 items-start relative">
           {/* LEFT COLUMN: EDITORIAL CONTENT BLOCKS */}
           <div className="lg:col-span-6 flex flex-col gap-24 sm:gap-12 lg:gap-0">
             {experiences.map((item, index) => (
@@ -130,8 +130,9 @@ export default function ExperienceSection() {
                 ref={(el) => {
                   leftItemRefs.current[index] = el;
                 }}
-                className={`min-h-0 lg:min-h-[60vh] ${index === 1 ? "lg:justify-end" : "lg:justify-start"
-                  } flex flex-col gap-y-2.5 sm:gap-y-3 p-5 sm:p-8 lg:p-0 py-6 sm:py-10 lg:py-16 lg:border border-white/10 lg:border-none rounded-2xl sm:rounded-3xl lg:rounded-none bg-white/[0.02] sm:bg-white/[0.025] lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none`}
+                className={`min-h-0 lg:min-h-[60vh] ${
+                  index === 1 ? "lg:justify-end" : "lg:justify-start"
+                } flex flex-col gap-y-2.5 sm:gap-y-3 p-5 sm:p-8 lg:p-0 py-6 sm:py-10 lg:py-16 lg:border border-white/10 lg:border-none rounded-2xl sm:rounded-3xl lg:rounded-none bg-white/[0.02] sm:bg-white/[0.025] lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none`}
               >
                 {/* Company Name */}
                 <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-1.5 sm:mb-3 leading-snug">
@@ -146,7 +147,6 @@ export default function ExperienceSection() {
 
                 {/* Meta Bar */}
                 <div className="flex flex-wrap items-center gap-2.5! sm:gap-4! lg:gap-6! text-[10px] sm:text-xs uppercase tracking-widest text-white/40 mb-1! sm:mb-6! border-y border-white/10 py-2.5! sm:py-3.5! max-w-xl w-full">
-                  
                   <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-white/20" />
                   <span>{item.location}</span>
                   <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 rounded-full bg-white/20" />
@@ -160,17 +160,17 @@ export default function ExperienceSection() {
 
                 {/* Tags / Chips */}
 
-
                 {/* MOBILE ONLY INLINE IMAGE */}
                 <div className="mt-4 sm:mt-6 lg:hidden w-full aspect-[16/10] sm:aspect-[16/9] max-w-[500px] rounded-xl sm:rounded-2xl overflow-hidden border border-white/10 bg-neutral-900/80 shadow-2xl relative group">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={item.img}
                     alt={`${item.company} screenshot`}
-                    className={`w-full h-full ${index === 1
-                      ? "object-contain p-4 sm:p-6 bg-neutral-950"
-                      : "object-cover"
-                      } grayscale contrast-[1.05] brightness-[0.9] group-hover:grayscale-0 transition-all duration-500`}
+                    className={`w-full h-full ${
+                      index === 1
+                        ? "object-contain scale-125 p-4 sm:p-6 bg-neutral-950"
+                        : "object-contain"
+                    } grayscale contrast-[1.05] brightness-[0.9] group-hover:grayscale-0 transition-all duration-500`}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none" />
                 </div>
@@ -194,7 +194,7 @@ export default function ExperienceSection() {
                   <img
                     src={item.img}
                     alt={`${item.company} screenshot`}
-                    className={`w-full ${index == 1 ? "object-contain" : "object-cover"} h-full grayscale contrast-[1.05] brightness-[0.9] hover:grayscale-0 transition-all duration-700`}
+                    className={`w-full lg:object-cover h-full grayscale contrast-[1.05] brightness-[0.9] hover:grayscale-0 transition-all duration-700`}
                   />
                   {/* Gradient Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none" />

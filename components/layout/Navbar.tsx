@@ -41,7 +41,10 @@ export default function Navbar() {
         const el = document.getElementById("works");
         if (el) {
           // Desktop: 3 * innerHeight is the exact zoom depth where PROJECTS text is scaled
-          const targetY = el.getBoundingClientRect().top + window.scrollY + window.innerHeight * 3;
+          const targetY =
+            el.getBoundingClientRect().top +
+            window.scrollY +
+            window.innerHeight * 3;
           if (lenis) {
             lenis.scrollTo(targetY, { duration: 1.4 });
           } else {
@@ -49,7 +52,9 @@ export default function Navbar() {
           }
         }
       } else {
-        const el = document.getElementById("projects-mobile") || document.getElementById("works");
+        const el =
+          document.getElementById("projects-mobile") ||
+          document.getElementById("works");
         if (el) {
           const targetY = el.getBoundingClientRect().top + window.scrollY;
           if (lenis) {
@@ -84,7 +89,7 @@ export default function Navbar() {
       initial={{ y: -50, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 1.2, ease: [0.76, 0, 0.24, 1], delay: 3.8 }}
-      className="fixed top-0 left-0 w-full z-50 px-4 py-6 md:px-12 md:py-8 flex justify-between items-center pointer-events-none"
+      className="fixed top-0 left-0 w-full z-50 px-1 py-6 md:px-12 md:py-8 flex justify-between items-center pointer-events-none"
     >
       {/* Center Zone: Clock (Desktop only) */}
       <div className="hidden md:flex flex-col items-start pointer-events-auto">
