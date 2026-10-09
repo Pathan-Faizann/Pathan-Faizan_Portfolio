@@ -3,7 +3,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { motion, AnimatePresence, type Variants } from "framer-motion";
 import { useSmoothScroll } from "@/components/layout/SmoothScroll";
-import { RiArrowRightWideLine } from "react-icons/ri";
 
 export default function Navbar() {
   const [time, setTime] = useState<string>("");
@@ -11,7 +10,7 @@ export default function Navbar() {
   const [isVisible, setIsVisible] = useState(true);
   const [hasEntered, setHasEntered] = useState(false);
   const isFirstMount = useRef(true);
-  const { lenis, lockScroll, unlockScroll } = useSmoothScroll();
+  const { lenis } = useSmoothScroll();
 
   useEffect(() => {
     const updateTime = () => {
@@ -19,14 +18,14 @@ export default function Navbar() {
         hour: "2-digit",
         minute: "2-digit",
         hour12: true,
-        timeZone: "Asia/Kolkata", // Client location time zone or UTC
+        timeZone: "Asia/Kolkata",
       };
       const formatter = new Intl.DateTimeFormat("en-US", options);
       setTime(formatter.format(new Date()));
     };
 
     updateTime();
-    const interval = setInterval(updateTime, 60000); // Update every minute
+    const interval = setInterval(updateTime, 60000);
     return () => clearInterval(interval);
   }, []);
 
@@ -43,7 +42,6 @@ export default function Navbar() {
     let lastScrollY = typeof window !== "undefined" ? window.scrollY : 0;
 
     const onScroll = (currentY: number) => {
-      // Near top of the page, always keep navbar visible
       if (currentY <= 80) {
         setIsVisible(true);
         lastScrollY = currentY;
@@ -51,14 +49,11 @@ export default function Navbar() {
       }
 
       const diff = currentY - lastScrollY;
-      // Ignore micro-scroll jitter
       if (Math.abs(diff) < 8) return;
 
       if (diff > 0) {
-        // Scrolling down -> slide up and hide
         setIsVisible(false);
       } else {
-        // Scrolling up -> slide down and reveal
         setIsVisible(true);
       }
 
@@ -76,7 +71,7 @@ export default function Navbar() {
     }
   }, [lenis]);
 
-  // Lock / unlock scroll when mobile overlay toggles
+  // Lock / unlock scroll when mobile overlay toggles (never add height: 100vh loading-lock)
   useEffect(() => {
     if (isFirstMount.current) {
       isFirstMount.current = false;
@@ -84,17 +79,22 @@ export default function Navbar() {
     }
 
     if (isOpen) {
-      lockScroll();
+      if (lenis) lenis.stop();
       document.body.style.overflow = "hidden";
     } else {
-      unlockScroll();
       document.body.style.overflow = "";
+      document.body.classList.remove("loading-lock");
+      if (lenis) {
+        lenis.start();
+        lenis.resize();
+      }
     }
 
     return () => {
       document.body.style.overflow = "";
+      document.body.classList.remove("loading-lock");
     };
-  }, [isOpen, lockScroll, unlockScroll]);
+  }, [isOpen, lenis]);
 
   // Close mobile menu if screen resizes to desktop breakpoint
   useEffect(() => {
@@ -119,65 +119,83 @@ export default function Navbar() {
   }, [isOpen]);
 
   const scrollToSection = (id: string) => {
+    let targetEl: HTMLElement | null = null;
+    let targetY: number | null = null;
+
     if (id === "about") {
-      const el = document.getElementById("works");
-      if (el) {
-        const targetY = el.getBoundingClientRect().top + window.scrollY;
-        if (lenis) {
-          lenis.scrollTo(targetY, { duration: 1.4 });
-        } else {
-          window.scrollTo({ top: targetY, behavior: "smooth" });
-        }
+      if (typeof window !== "undefined" && window.innerWidth < 1024) {
+        targetEl =
+          document.getElementById("about-mobile") ||
+          document.getElementById("works");
+      } else {
+        targetEl = document.getElementById("works");
       }
     } else if (id === "projects") {
-      if (window.innerWidth >= 1024) {
-        const el = document.getElementById("works");
-        if (el) {
-          // Desktop: 3 * innerHeight is the exact zoom depth where PROJECTS text is scaled
-          const targetY =
-            el.getBoundingClientRect().top +
-            window.scrollY +
-            window.innerHeight * 3;
-          if (lenis) {
-            lenis.scrollTo(targetY, { duration: 1.4 });
-          } else {
-            window.scrollTo({ top: targetY, behavior: "smooth" });
-          }
-        }
-      } else {
-        const el =
+      if (typeof window !== "undefined" && window.innerWidth < 1024) {
+        targetEl =
           document.getElementById("projects-mobile") ||
           document.getElementById("works");
-        if (el) {
-          const targetY = el.getBoundingClientRect().top + window.scrollY;
-          if (lenis) {
-            lenis.scrollTo(targetY, { duration: 1.4 });
-          } else {
-            window.scrollTo({ top: targetY, behavior: "smooth" });
-          }
+      } else {
+        const worksEl = document.getElementById("works");
+        if (worksEl) {
+          const rect = worksEl.getBoundingClientRect();
+          const currentScrollY =
+            window.pageYOffset || document.documentElement.scrollTop;
+          targetY = rect.top + currentScrollY + window.innerHeight * 3;
         }
       }
     } else {
-      const el = document.getElementById(id);
-      if (el) {
-        if (lenis) {
-          lenis.scrollTo(el, { duration: 1.4 });
-        } else {
-          el.scrollIntoView({ behavior: "smooth" });
-        }
+      targetEl = document.getElementById(id);
+    }
+
+    if (targetEl && targetY === null) {
+      const rect = targetEl.getBoundingClientRect();
+      const currentScrollY =
+        window.pageYOffset || document.documentElement.scrollTop;
+      // 24px offset for clean breathing room below sticky header
+      targetY = Math.max(0, rect.top + currentScrollY - 24);
+    }
+
+    if (targetY !== null) {
+      if (lenis) {
+        lenis.start();
+        lenis.resize();
+        lenis.scrollTo(targetY, { duration: 1.2, immediate: false });
+      } else {
+        window.scrollTo({ top: targetY, behavior: "smooth" });
       }
+
+      // Fallback verification for mobile touch environments
+      const destinationY = targetY;
+      setTimeout(() => {
+        const actualScroll =
+          window.pageYOffset || document.documentElement.scrollTop;
+        if (Math.abs(actualScroll - destinationY) > 80) {
+          window.scrollTo({ top: destinationY, behavior: "smooth" });
+        }
+      }, 100);
     }
   };
 
   const handleMobileNavClick = (id: string) => {
+    // 1. Immediately close mobile overlay
     setIsOpen(false);
-    unlockScroll();
-    document.body.style.overflow = "";
 
-    // Short timeout allows overlay exit animation to initiate before Lenis scrolls
+    // 2. Clear any lingering body scroll lock
+    document.body.style.overflow = "";
+    document.body.classList.remove("loading-lock");
+
+    // 3. Resume and resize Lenis immediately
+    if (lenis) {
+      lenis.start();
+      lenis.resize();
+    }
+
+    // 4. Trigger scroll immediately & re-sync on next tick for buttery smooth travel
+    scrollToSection(id);
     setTimeout(() => {
       scrollToSection(id);
-    }, 180);
+    }, 120);
   };
 
   const navItems = [
@@ -268,15 +286,25 @@ export default function Navbar() {
         {/* Desktop Centered 1400px Clean Frosted Glass Pill */}
         <div className="hidden md:flex relative overflow-hidden items-center justify-between w-full max-w-[1400px] h-[64px]! px-8! rounded-full border border-white/10! border-t-white/30! border-b-white/5! bg-[#050505]/28! bg-gradient-to-b! from-white/[0.09] via-white/[0.025] to-transparent! backdrop-blur-[8px]! shadow-[inset_0_1px_1px_rgba(255,255,255,0.18),inset_0_-1px_1px_rgba(255,255,255,0.04),0_12px_40px_rgba(0,0,0,0.45)]! pointer-events-auto transition-all duration-300">
 
-          {/* Center Zone: Clock (Desktop only) */}
-          <div className="relative z-10 flex flex-col items-start pointer-events-auto">
-            <span className="text-[10px] uppercase tracking-[0.2em] text-[#888888]">
-              IST — MUMBAI, IN
+          {/* Left Zone: Brand Logo (FAIZAN.dev) */}
+          <button
+            onClick={() => {
+              if (lenis) {
+                lenis.scrollTo(0, { duration: 1.4 });
+              } else {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
+            className="group relative z-10 flex items-baseline gap-0.5 pointer-events-auto cursor-pointer select-none transition-transform duration-200 hover:scale-[1.03] active:scale-95"
+            aria-label="Scroll to top"
+          >
+            <span className="font-display text-base sm:text-lg lg:text-xl font-black uppercase tracking-tight text-white drop-shadow-[0_0_14px_rgba(255,255,255,0.35)] transition-colors">
+              FAIZAN
             </span>
-            <span className="font-mono text-xs text-[#f5f5f5] mt-0.5 tracking-wider">
-              {time || "00:00 AM"}
+            <span className="font-mono text-xs sm:text-sm font-medium tracking-normal text-neutral-400 group-hover:text-neutral-200 transition-colors">
+              .dev
             </span>
-          </div>
+          </button>
 
           {/* Desktop Navigation Links */}
           <nav className="relative z-10 flex items-center gap-8 lg:gap-12 pointer-events-auto ml-auto">
@@ -292,8 +320,27 @@ export default function Navbar() {
           </nav>
         </div>
 
-        {/* Mobile Navigation Trigger Button (Circular Glass Pill matching Skills section) */}
-        <div className="md:hidden flex items-center justify-end w-full pointer-events-auto">
+        {/* Mobile Navigation Bar */}
+        <div className="md:hidden flex items-center justify-between w-full pointer-events-auto px-1">
+          {/* Mobile Brand Logo */}
+          <button
+            onClick={() => {
+              if (lenis) {
+                lenis.scrollTo(0, { duration: 1.4 });
+              } else {
+                window.scrollTo({ top: 0, behavior: "smooth" });
+              }
+            }}
+            className="flex items-baseline gap-0.5 cursor-pointer select-none px-3.5 py-1.5 rounded-full border border-white/10 border-t-white/25 bg-gradient-to-b from-white/[0.08] to-white/[0.02] backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.18),0_4px_14px_rgba(0,0,0,0.5)] active:scale-95 transition-all"
+            aria-label="Scroll to top"
+          >
+            <span className="font-display text-sm font-black uppercase tracking-tight text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">
+              FAIZAN
+            </span>
+            <span className="font-mono text-[11px] font-medium text-neutral-400">
+              .dev
+            </span>
+          </button>
           <button
             onClick={() => setIsOpen((prev) => !prev)}
             aria-label={isOpen ? "Close menu" : "Open menu"}

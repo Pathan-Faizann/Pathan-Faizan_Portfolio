@@ -906,6 +906,7 @@ export default function WorksSection() {
         {/* Mobile About / Statement Intro with Awwwards-style word-by-word cascading reveal */}
         <div
           ref={mobileAboutRef}
+          id="about-mobile"
           className="px-6! py-14! border-b border-[#1c1c1c]/60! max-w-xl! mx-auto!"
         >
           <span className="about-badge text-[11px] font-mono uppercase tracking-[0.25em]! text-[#888888] block mb-3! will-change-transform">
