@@ -8,7 +8,7 @@ export default function DownloadResumeButton() {
       href="/Faizan_Resume.pdf"
       target="_blank"
       rel="noopener noreferrer"
-      className="group relative inline-flex items-center! gap-2.5! px-5! py-2.5! sm:px-6! sm:py-3! rounded-full! text-xs! font-mono tracking-widest uppercase! border! border-white/20! bg-white/[0.04]! text-white/90! hover:text-black! hover:bg-white! !hover:border-white! transition-all! duration-500! ease-out! shadow-sm! hover:shadow-[0_0_24px_rgba(255,255,255,0.25)]! active:scale-95! cursor-pointer! backdrop-blur-sm!"
+      className="group relative inline-flex items-center! gap-2.5! px-5! py-2.5! sm:px-6! sm:py-3! rounded-full! text-xs! font-mono tracking-widest uppercase! border! border-white/10! border-t-white/30! bg-gradient-to-b! from-white/[0.08]! to-white/[0.02]! backdrop-blur-md! text-white/90! shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_14px_rgba(0,0,0,0.5)]! hover:bg-white! hover:text-black! hover:border-white! hover:shadow-[0_0_24px_rgba(255,255,255,0.35)]! active:scale-95! transition-all! duration-300! ease-out! cursor-pointer! select-none!"
       aria-label="Download CV"
     >
       <span className="font-medium text-[11px] sm:text-xs">Read CV</span>

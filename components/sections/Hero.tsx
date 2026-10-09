@@ -319,7 +319,7 @@ const Hero = forwardRef<HeroHandle, HeroProps>(function Hero(
   return (
     <section
       ref={containerRef}
-      className="relative min-h-screen w-full flex flex-col justify-between px-6 py-24 md:px-16 md:py-32 bg-[#050505] overflow-hidden items-center justify-center"
+      className="relative min-h-screen w-full flex flex-col justify-between px-6 pt-8! lg:pt-0! py-24 md:px-16 md:py-32 bg-[#050505] overflow-hidden items-center justify-center"
     >
       {/* Editorial Background Grid */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#0c0c0c_1px,transparent_1px),linear-gradient(to_bottom,#0c0c0c_1px,transparent_1px)] bg-[size:5rem_5rem] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_40%,#000_70%,transparent_100%)] opacity-35 pointer-events-none" />

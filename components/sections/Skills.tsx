@@ -208,7 +208,7 @@ export function Skills() {
     <section
       ref={sectionRef}
       id="skills"
-      className="relative w-full bg-[#050505] text-[#f5f5f5] px-6! py-15! sm:py-28! md:px-12! md:py-36! lg:px-16! lg:py-40! overflow-hidden flex justify-center border-b border-[#111111]"
+      className="relative w-full bg-[#050505] text-[#f5f5f5] px-6! py-28! sm:py-28! md:px-12! md:py-36! lg:px-16! lg:py-55! overflow-hidden flex justify-center border-b border-[#111111]"
     >
       {/* Ambient Background Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px]" />

@@ -9,7 +9,7 @@ import Footer from "@/components/layout/Footer";
 import WorksSection from "@/components/sections/WorksSection";
 import ExperienceSection from "@/components/sections/ExperienceSection";
 import Expertise from "@/components/sections/Expertise";
-import JourneyOrb from "@/components/sections/JourneyOrb";
+
 import { Skills } from "@/components/sections/Skills";
 
 export default function Home() {
@@ -60,7 +60,7 @@ export default function Home() {
           <WorksSection />
           {/* Experience — independent section, starts after Selected Works unpins */}
           <ExperienceSection />
-          {/* <JourneyOrb /> */}
+
           <Skills />
           <Expertise />
         </main>
