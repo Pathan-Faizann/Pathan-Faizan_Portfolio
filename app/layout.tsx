@@ -24,9 +24,16 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${plusJakartaSans.variable} h-full antialiased`}
+      className={`${plusJakartaSans.variable} h-full antialiased loading-lock`}
     >
-      <body className="min-h-full bg-[#050505] text-[#f5f5f5]">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `if('scrollRestoration' in history){history.scrollRestoration='manual'}window.scrollTo(0,0);`,
+          }}
+        />
+      </head>
+      <body className="min-h-full bg-[#050505] text-[#f5f5f5] loading-lock">
         <SmoothScrollProvider>{children}</SmoothScrollProvider>
       </body>
     </html>

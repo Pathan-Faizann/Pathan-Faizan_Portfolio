@@ -210,6 +210,7 @@ function SkillCard({
       <div
         className={`pointer-events-none absolute -inset-2 rounded-3xl bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.08),transparent_70%)] blur-2xl transition-opacity duration-500 ${isHovered && isDesktop ? "opacity-80" : "opacity-0"
           }`}
+        style={{ transform: "translateZ(0)" }}
       />
 
       {/* The 3D Tilt Card */}
@@ -298,17 +299,18 @@ export function Skills() {
     if (!section) return;
 
     const ctx = gsap.context(() => {
-      // Header entrance animation
+      // Header entrance animation (hardware-accelerated GPU transform)
       if (header) {
         gsap.fromTo(
           header,
-          { opacity: 0, y: 40, filter: "blur(8px)" },
+          { opacity: 0, y: 32 },
           {
             opacity: 1,
             y: 0,
-            filter: "blur(0px)",
-            duration: 1,
-            ease: "power3.out",
+            duration: 0.85,
+            ease: "power2.out",
+            force3D: true,
+            clearProps: "transform,opacity",
             scrollTrigger: {
               trigger: section,
               start: "top 82%",
@@ -319,28 +321,28 @@ export function Skills() {
         );
       }
 
-      // 3 Cards staggered entrance animation
+      // 3 Cards staggered entrance animation (pure GPU transform, zero raster blur stalls)
       const cards = cardsRef.current.filter(Boolean);
       if (cards.length > 0) {
         gsap.fromTo(
           cards,
           {
             opacity: 0,
-            y: 75,
-            scale: 0.93,
-            filter: "blur(12px)",
+            y: 60,
+            scale: 0.96,
           },
           {
             opacity: 1,
             y: 0,
             scale: 1,
-            filter: "blur(0px)",
-            duration: 1.1,
-            stagger: 0.16,
-            ease: "power3.out",
+            duration: 0.9,
+            stagger: 0.12,
+            ease: "power2.out",
+            force3D: true,
+            clearProps: "transform,opacity",
             scrollTrigger: {
               trigger: section,
-              start: "top 75%",
+              start: "top 78%",
               toggleActions: "play none none none",
               once: true,
             },
@@ -361,8 +363,11 @@ export function Skills() {
       {/* Ambient Background Grid */}
       <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px]" />
 
-      {/* Radial soft lighting */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px]! h-[350px]! bg-white/[0.015] rounded-full blur-[140px] pointer-events-none" />
+      {/* Radial soft lighting (GPU composite layer) */}
+      <div
+        className="absolute top-1/2 left-1/2 w-[700px]! h-[350px]! bg-white/[0.015] rounded-full blur-[140px] pointer-events-none"
+        style={{ transform: "translate3d(-50%, -50%, 0)", willChange: "transform" }}
+      />
 
       <div className="max-w-[1400px] w-full relative z-10! flex flex-col">
         {/* Section Header */}

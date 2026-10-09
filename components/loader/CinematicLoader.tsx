@@ -3,7 +3,6 @@
 import React, { useEffect, useRef } from "react";
 import { flushSync } from "react-dom";
 import { gsap } from "@/lib/gsap";
-import { useSmoothScroll } from "@/components/layout/SmoothScroll";
 import WaterFillText, { WaterFillTextHandle } from "./WaterFillText";
 import {
   createFloatingClone,
@@ -32,7 +31,6 @@ export default function CinematicLoader({
   const textShellRef = useRef<HTMLDivElement>(null);
   const waterFillRef = useRef<WaterFillTextHandle>(null);
   const timelineRef = useRef<gsap.core.Timeline | null>(null);
-  const { unlockScroll } = useSmoothScroll();
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -45,7 +43,6 @@ export default function CinematicLoader({
         duration: 0.6,
         ease: EASE_CURTAIN,
         onComplete: () => {
-          unlockScroll();
           onComplete();
         },
       });
@@ -82,7 +79,6 @@ export default function CinematicLoader({
           duration: 0.8,
           ease: EASE_CURTAIN,
           onComplete: () => {
-            unlockScroll();
             onComplete();
           },
         });
@@ -111,7 +107,6 @@ export default function CinematicLoader({
           duration: 0.8,
           ease: EASE_CURTAIN,
           onComplete: () => {
-            unlockScroll();
             onComplete();
           },
         });
@@ -143,7 +138,6 @@ export default function CinematicLoader({
         onComplete: () => {
           heroEl.style.visibility = "visible";
           cleanup();
-          unlockScroll();
           onComplete();
         },
       });
@@ -186,8 +180,16 @@ export default function CinematicLoader({
     <>
       <div
         ref={curtainRef}
-        className="fixed inset-0 z-[9998] bg-[#050505] will-change-transform"
+        className="fixed inset-0 z-[9998] bg-[#050505] will-change-transform touch-none"
         aria-hidden="true"
+        onWheel={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
+        onTouchMove={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
       />
 
       <div

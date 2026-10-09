@@ -1,19 +1,27 @@
 "use client";
 
 import React, { useRef, useState } from "react";
+import dynamic from "next/dynamic";
 import CinematicLoader from "@/components/loader/CinematicLoader";
 import Navbar from "@/components/layout/Navbar";
 import Hero, { HeroHandle } from "@/components/sections/Hero";
-import Footer from "@/components/layout/Footer";
-// import Philosophy from "@/components/sections/Philosophy";
 import WorksSection from "@/components/sections/WorksSection";
-import ExperienceSection from "@/components/sections/ExperienceSection";
-import Expertise from "@/components/sections/Expertise";
+import { useSmoothScroll } from "@/components/layout/SmoothScroll";
 
-import { Skills } from "@/components/sections/Skills";
+// Dynamically split below-the-fold components to reduce initial JavaScript payload
+const ExperienceSection = dynamic(
+  () => import("@/components/sections/ExperienceSection"),
+);
+const Skills = dynamic(() =>
+  import("@/components/sections/Skills").then((mod) => mod.Skills),
+);
+const Expertise = dynamic(() => import("@/components/sections/Expertise"));
+const Footer = dynamic(() => import("@/components/layout/Footer"));
 
 export default function Home() {
   const [loaderDone, setLoaderDone] = useState(false);
+  const [isSettled, setIsSettled] = useState(false);
+  const { unlockScroll } = useSmoothScroll();
 
   /**
    * heroTitleRef — points to the <h1> inside HeroTitle.
@@ -31,7 +39,24 @@ export default function Home() {
   const handleLoaderComplete = () => {
     setLoaderDone(true);
     // Trigger hero entrance animations (portrait, subtitle, scroll indicator)
-    heroRef.current?.playEntrance();
+    // Unlock scrolling only after hero page has completely settled
+    let unlocked = false;
+    const safeUnlock = () => {
+      if (!unlocked) {
+        unlocked = true;
+        setIsSettled(true);
+        unlockScroll();
+      }
+    };
+
+    if (heroRef.current) {
+      heroRef.current.playEntrance(safeUnlock);
+    } else {
+      safeUnlock();
+    }
+
+    // Fallback safety timeout in case entrance animation is interrupted or skipped
+    setTimeout(safeUnlock, 2500);
   };
 
   return (
@@ -44,8 +69,12 @@ export default function Home() {
         />
       )}
 
-      {/* Full page — always mounted so layout is stable for FLIP measurement */}
-      <div className="homepage-content min-h-screen w-full flex flex-col bg-[#050505]">
+      {/* Full page — strictly bounded to 100vh until settled, then expands to full scrollable length */}
+      <div
+        className={`homepage-content min-h-screen w-full flex flex-col bg-[#050505] ${
+          !isSettled ? "h-screen max-h-screen overflow-hidden" : ""
+        }`}
+      >
         <Navbar />
         <main className="flex-1 w-full">
           <Hero ref={heroRef} titleRef={heroTitleRef} />
