@@ -321,7 +321,7 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Navigation Bar */}
-        <div className="md:hidden flex items-center justify-between w-full pointer-events-auto px-1">
+        <div className="md:hidden flex items-center justify-between mb-20! w-full pointer-events-auto px-4!">
           {/* Mobile Brand Logo */}
           <button
             onClick={() => {
@@ -331,7 +331,7 @@ export default function Navbar() {
                 window.scrollTo({ top: 0, behavior: "smooth" });
               }
             }}
-            className="flex items-baseline gap-0.5 cursor-pointer select-none px-3.5 py-1.5 rounded-full border border-white/10 border-t-white/25 bg-gradient-to-b from-white/[0.08] to-white/[0.02] backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.18),0_4px_14px_rgba(0,0,0,0.5)] active:scale-95 transition-all"
+            className="flex items-baseline gap-0.5 cursor-pointer select-none px-3.5! py-1.5! rounded-full border border-white/10 border-t-white/25 bg-gradient-to-b from-white/[0.08] to-white/[0.02] backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.18),0_4px_14px_rgba(0,0,0,0.5)] active:scale-95 transition-all"
             aria-label="Scroll to top"
           >
             <span className="font-display text-sm font-black uppercase tracking-tight text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.3)]">

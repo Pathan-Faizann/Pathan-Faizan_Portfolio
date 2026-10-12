@@ -125,11 +125,11 @@ const Hero = forwardRef<HeroHandle, HeroProps>(function Hero(
       <div className="h-4 md:h-8" />
 
       {/* Main Column Grid */}
-      <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center relative z-10 my-auto">
+      <div className="max-w-7xl w-full grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-8 items-center relative z-10 my-auto">
         {/* Left Column: Title + Subtitle */}
         <div
           ref={leftColRef}
-          className="lg:col-span-7 flex flex-col justify-center lg:items-start items-center select-none will-change-transform"
+          className="lg:col-span-7 flex flex-col pt-7! lg:pt-0! justify-center lg:items-start items-center select-none will-change-transform"
         >
           {/*
            * HeroTitle receives the ref so the loader can read its rect.

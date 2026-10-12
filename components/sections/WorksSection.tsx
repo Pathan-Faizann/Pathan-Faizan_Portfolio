@@ -32,7 +32,7 @@ function OptimizedParallaxVideo({
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
-          video.play().catch(() => {});
+          video.play().catch(() => { });
         } else {
           video.pause();
         }
@@ -522,7 +522,8 @@ export default function WorksSection() {
             {ABOUT_PARA_1.split(" ").map((word, i) => (
               <span
                 key={i}
-                className="inline-block overflow-hidden mr-[0.28em]! py-[2px]! -my-[2px]! align-top"
+                className="inline-block overflow-hidden py-[2px]! -my-[2px]! align-top"
+                style={{ marginRight: "0.3em" }}
               >
                 <span className="about-revealing-word inline-block will-change-transform">
                   {word}
@@ -534,7 +535,8 @@ export default function WorksSection() {
             {ABOUT_PARA_2.split(" ").map((word, i) => (
               <span
                 key={i}
-                className="inline-block overflow-hidden mr-[0.28em] py-[2px] -my-[2px] align-top"
+                className="inline-block overflow-hidden py-[2px]! -my-[2px]! align-top"
+                style={{ marginRight: "0.38em" }}
               >
                 <span className="about-revealing-word inline-block will-change-transform">
                   {word}
@@ -571,7 +573,7 @@ export default function WorksSection() {
               {/* Card Top Tab Header (creates visible stacked deck echelon) */}
               <div className="relative flex items-center justify-between px-4! py-2.5! border-b! border-white/10! border-t! border-t-white/30! bg-gradient-to-b! from-white/[0.08]! to-white/[0.02]! bg-[#0c0c0c]/85! backdrop-blur-md! shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_14px_rgba(0,0,0,0.5)]!">
                 <div className="flex items-center gap-2!">
-                  <span className="w-1.5! h-1.5! rounded-full bg-white/60 shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
+                  <span className="w-1.5! h-1.5! rounded-full hidden bg-white/60 shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
                   <span className="text-[10px]! font-mono tracking-widest text-white/90 uppercase">
                     0{index + 1} / 0{PROJECTS.length}
                   </span>
