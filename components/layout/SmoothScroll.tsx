@@ -50,13 +50,13 @@ export default function SmoothScrollProvider({
     document.body.classList.add("loading-lock");
     window.scrollTo(0, 0);
 
-    // Synchronize Lenis with GSAP ticker (unified 60/120fps clock, lagSmoothing(0))
+    // Synchronize Lenis with GSAP ticker with jitter-free lag smoothing
     const updateTicker = (time: number) => {
       lenisInstance.raf(time * 1000);
     };
 
     gsap.ticker.add(updateTicker);
-    gsap.ticker.lagSmoothing(0);
+    gsap.ticker.lagSmoothing(500, 33);
 
     // Synchronize ScrollTrigger updates with Lenis scroll ticks
     const scrollHandler = () => {
@@ -64,7 +64,16 @@ export default function SmoothScrollProvider({
     };
     lenisInstance.on("scroll", scrollHandler);
 
+    // Keep Lenis and ScrollTrigger in perfect sync on document size changes
+    const resizeObserver = new ResizeObserver(() => {
+      lenisInstance.resize();
+    });
+    if (typeof document !== "undefined" && document.body) {
+      resizeObserver.observe(document.body);
+    }
+
     return () => {
+      resizeObserver.disconnect();
       gsap.ticker.remove(updateTicker);
       lenisInstance.off("scroll", scrollHandler);
       lenisInstance.destroy();

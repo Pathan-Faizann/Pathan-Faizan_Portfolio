@@ -5,6 +5,24 @@ import { motion } from "framer-motion";
 
 export default function Footer() {
   const [time, setTime] = useState<string>("");
+  const [copied, setCopied] = useState(false);
+
+  const handleCopyEmail = async () => {
+    try {
+      await navigator.clipboard.writeText("faizanpathan8104@gmail.com");
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      const textArea = document.createElement("textarea");
+      textArea.value = "faizanpathan8104@gmail.com";
+      document.body.appendChild(textArea);
+      textArea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textArea);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
+  };
 
   useEffect(() => {
     const updateTime = () => {
@@ -43,16 +61,28 @@ export default function Footer() {
         {/* Footer Meta & Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-6 lg:pt-12! pt-6! border-t border-[#111111] items-start">
           {/* Email section */}
-          <div className="flex flex-col">
+          <div className="flex flex-col items-start">
             <span className="text-[10px] uppercase tracking-[0.2em] text-[#888888] mb-1!">
               Direct Inquiry
             </span>
-            <a
-              href="mailto:hello@faizan.design"
-              className="text-lg font-mono hover:opacity-75 transition-opacity inline-block w-fit text-[#f5f5f5]"
+            <button
+              type="button"
+              onClick={handleCopyEmail}
+              className="group relative inline-flex items-center gap-2 text-lg font-mono text-[#f5f5f5] hover:opacity-85 transition-opacity cursor-pointer select-none text-left"
+              title="Click to copy email"
+              aria-label="Copy email address"
             >
-              faizanpathan8104@gmail.com
-            </a>
+              <span>faizanpathan8104@gmail.com</span>
+              <span
+                className={`text-[10px] font-mono uppercase tracking-widest px-2 py-0.5 rounded border transition-all duration-200 ${
+                  copied
+                    ? "bg-white text-black border-white opacity-100 scale-100"
+                    : "opacity-0 scale-95 border-white/20 text-white/50 group-hover:opacity-100"
+                }`}
+              >
+                {copied ? "Copied!" : "Copy"}
+              </span>
+            </button>
           </div>
 
           {/* Social Links */}

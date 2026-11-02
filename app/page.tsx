@@ -1,22 +1,16 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import dynamic from "next/dynamic";
 import CinematicLoader from "@/components/loader/CinematicLoader";
 import Navbar from "@/components/layout/Navbar";
 import Hero, { HeroHandle } from "@/components/sections/Hero";
 import WorksSection from "@/components/sections/WorksSection";
 import { useSmoothScroll } from "@/components/layout/SmoothScroll";
 
-// Dynamically split below-the-fold components to reduce initial JavaScript payload
-const ExperienceSection = dynamic(
-  () => import("@/components/sections/ExperienceSection"),
-);
-const Skills = dynamic(() =>
-  import("@/components/sections/Skills").then((mod) => mod.Skills),
-);
-const Expertise = dynamic(() => import("@/components/sections/Expertise"));
-const Footer = dynamic(() => import("@/components/layout/Footer"));
+import ExperienceSection from "@/components/sections/ExperienceSection";
+import { Skills } from "@/components/sections/Skills";
+import Expertise from "@/components/sections/Expertise";
+import Footer from "@/components/layout/Footer";
 
 export default function Home() {
   const [loaderDone, setLoaderDone] = useState(false);

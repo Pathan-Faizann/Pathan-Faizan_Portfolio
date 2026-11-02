@@ -11,7 +11,7 @@ const plusJakartaSans = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "FAIZAN | Cinematic Portfolio",
+  title: "FAIZAN | Full Stack Developer Portfolio",
   description:
     "Luxury, minimal, editorial, and premium cinematic portfolio website.",
 };

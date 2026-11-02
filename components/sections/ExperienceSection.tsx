@@ -81,6 +81,7 @@ export default function ExperienceSection() {
           gsap.to(currentWrapper, {
             clipPath: "inset(0% 0% 100% 0%)",
             ease: "none",
+            force3D: true,
             scrollTrigger: {
               trigger: nextLeft,
               start: "top 60%",
@@ -131,7 +132,7 @@ export default function ExperienceSection() {
                   leftItemRefs.current[index] = el;
                 }}
                 className={`min-h-0 lg:min-h-[60vh] ${index === 1 ? "lg:justify-end" : "lg:justify-start"
-                  } flex flex-col gap-y-2.5 sm:gap-y-3 p-5 sm:p-8 lg:p-0 py-6 sm:py-10 lg:py-16 lg:border border-white/10 lg:border-none rounded-2xl sm:rounded-3xl lg:rounded-none bg-white/[0.02] sm:bg-white/[0.025] lg:bg-transparent backdrop-blur-sm lg:backdrop-blur-none`}
+                  } flex flex-col gap-y-2.5 sm:gap-y-3 p-5 sm:p-8 lg:p-0 py-6 sm:py-10 lg:py-16 lg:border border-white/10 lg:border-none rounded-2xl sm:rounded-3xl lg:rounded-none bg-[#0a0a0a] lg:bg-transparent`}
               >
                 {/* Company Name */}
                 <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-tight text-white mb-1.5 sm:mb-3 leading-snug">
@@ -177,8 +178,8 @@ export default function ExperienceSection() {
           </div>
 
           {/* RIGHT COLUMN: STICKY PINNED IMAGE STACK */}
-          <div className="hidden lg:flex lg:col-span-6 justify-center items-center sticky top-[calc(50vh-164px)] self-start my-auto py-4">
-            <div className="w-full max-w-[460px] aspect-[14/10] rounded-2xl lg:rounded-3xl overflow-hidden border border-white/10 bg-neutral-900/40 shadow-2xl backdrop-blur-sm relative">
+          <div className="hidden lg:flex lg:col-span-6 justify-center items-center sticky top-[calc(50vh-164px)] self-start py-4">
+            <div className="w-full max-w-[460px] aspect-[14/10] rounded-2xl lg:rounded-3xl overflow-hidden border border-white/10 bg-neutral-900/90 shadow-2xl relative" style={{ transform: "translateZ(0)" }}>
               {experiences.map((item, index) => (
                 <div
                   key={index}
@@ -186,6 +187,7 @@ export default function ExperienceSection() {
                     imageWrapperRefs.current[index] = el;
                   }}
                   className="absolute inset-0 w-full h-full overflow-hidden will-change-[clip-path]"
+                  style={{ transform: "translateZ(0)" }}
                 >
                   {/* Static Image */}
                   {/* eslint-disable-next-line @next/next/no-img-element */}

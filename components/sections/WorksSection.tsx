@@ -571,7 +571,7 @@ export default function WorksSection() {
               className="sticky! mb-10! sm:mb-14! last:mb-0! rounded-2xl! bg-[#0c0c0c] border border-white/10! border-t-white/20 shadow-[0_-12px_30px_rgba(0,0,0,0.9),0_20px_40px_rgba(0,0,0,0.85)] overflow-hidden transition-all duration-300 flex flex-col will-change-transform"
             >
               {/* Card Top Tab Header (creates visible stacked deck echelon) */}
-              <div className="relative flex items-center justify-between px-4! py-2.5! border-b! border-white/10! border-t! border-t-white/30! bg-gradient-to-b! from-white/[0.08]! to-white/[0.02]! bg-[#0c0c0c]/85! backdrop-blur-md! shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_14px_rgba(0,0,0,0.5)]!">
+              <div className="relative flex items-center justify-between px-4! py-2.5! border-b! border-white/10! border-t! border-t-white/30! bg-gradient-to-b! from-white/[0.08]! to-white/[0.02]! bg-[#121212]! shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_14px_rgba(0,0,0,0.5)]!">
                 <div className="flex items-center gap-2!">
                   <span className="w-1.5! h-1.5! rounded-full hidden bg-white/60 shadow-[0_0_8px_rgba(255,255,255,0.4)]" />
                   <span className="text-[10px]! font-mono tracking-widest text-white/90 uppercase">

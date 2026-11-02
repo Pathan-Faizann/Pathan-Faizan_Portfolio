@@ -72,10 +72,10 @@ function SkillCard({
 }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const tiltCardRef = useRef<HTMLDivElement>(null);
+  const spotlightRef = useRef<HTMLDivElement>(null);
+  const outerGlowRef = useRef<HTMLDivElement>(null);
 
-  const [isDesktop, setIsDesktop] = useState(false);
-  const [isHovered, setIsHovered] = useState(false);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+  const isDesktopRef = useRef(false);
 
   // Physics animation state for buttery smooth damping
   const targetRef = useRef({ rx: 0, ry: 0, scale: 1 });
@@ -87,7 +87,7 @@ function SkillCard({
       const isFinePointer = window.matchMedia("(pointer: fine)").matches;
       const isLargeScreen = window.innerWidth >= 1024;
       const desktop = isFinePointer && isLargeScreen;
-      setIsDesktop(desktop);
+      isDesktopRef.current = desktop;
 
       if (!desktop && tiltCardRef.current) {
         tiltCardRef.current.style.transform = "";
@@ -142,13 +142,16 @@ function SkillCard({
   };
 
   const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isDesktop || !containerRef.current) return;
+    if (!isDesktopRef.current || !containerRef.current) return;
 
     const rect = containerRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
-    setMousePos({ x, y });
+    // Direct DOM update for cursor spotlight glow - ZERO React re-renders during scroll/hover
+    if (spotlightRef.current) {
+      spotlightRef.current.style.background = `radial-gradient(520px circle at ${x}px ${y}px, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.06) 30%, rgba(255,255,255,0.015) 60%, transparent 80%)`;
+    }
 
     // Normalized coordinates (-0.5 to 0.5)
     const normX = x / rect.width - 0.5;
@@ -166,14 +169,20 @@ function SkillCard({
   };
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!isDesktop || !containerRef.current) return;
-    setIsHovered(true);
+    if (!isDesktopRef.current || !containerRef.current) return;
 
     const rect = containerRef.current.getBoundingClientRect();
-    setMousePos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    if (spotlightRef.current) {
+      spotlightRef.current.style.opacity = "1";
+      spotlightRef.current.style.background = `radial-gradient(520px circle at ${x}px ${y}px, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.06) 30%, rgba(255,255,255,0.015) 60%, transparent 80%)`;
+    }
+    if (outerGlowRef.current) {
+      outerGlowRef.current.style.opacity = "0.8";
+    }
+
     targetRef.current.scale = 1.025;
 
     if (!rafIdRef.current) {
@@ -182,8 +191,14 @@ function SkillCard({
   };
 
   const handleMouseLeave = () => {
-    if (!isDesktop) return;
-    setIsHovered(false);
+    if (!isDesktopRef.current) return;
+
+    if (spotlightRef.current) {
+      spotlightRef.current.style.opacity = "0";
+    }
+    if (outerGlowRef.current) {
+      outerGlowRef.current.style.opacity = "0";
+    }
 
     // Smoothly return to rest position
     targetRef.current.rx = 0;
@@ -208,21 +223,15 @@ function SkillCard({
     >
       {/* Outer ambient glow halo behind the card on hover (Desktop) */}
       <div
-        className={`pointer-events-none absolute -inset-2 rounded-3xl bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.08),transparent_70%)] blur-2xl transition-opacity duration-500 ${isHovered && isDesktop ? "opacity-80" : "opacity-0"
-          }`}
+        ref={outerGlowRef}
+        className="pointer-events-none absolute -inset-2 rounded-3xl bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.08),transparent_70%)] blur-2xl transition-opacity duration-500 opacity-0"
         style={{ transform: "translateZ(0)" }}
       />
 
       {/* The 3D Tilt Card */}
       <div
         ref={tiltCardRef}
-        className="relative flex flex-col justify-start h-full p-6! sm:p-8! lg:p-9! rounded-3xl border border-white/10 bg-[#0a0a0a]/90 backdrop-blur-md select-none transition-colors duration-500 hover:border-white/30 will-change-transform [transform-style:preserve-3d]"
-        style={{
-          boxShadow:
-            isHovered && isDesktop
-              ? "0 28px 65px -12px rgba(0,0,0,0.85), 0 0 35px 2px rgba(255,255,255,0.08), inset 0 1px 1px 0 rgba(255,255,255,0.22)"
-              : "0 10px 30px -10px rgba(0,0,0,0.5)",
-        }}
+        className="relative flex flex-col justify-start h-full p-6! sm:p-8! lg:p-9! rounded-3xl border border-white/10 bg-[#0a0a0a]/95 select-none transition-colors duration-500 hover:border-white/30 will-change-transform [transform-style:preserve-3d] shadow-[0_10px_30px_-10px_rgba(0,0,0,0.5)] group-hover:shadow-[0_28px_65px_-12px_rgba(0,0,0,0.85),0_0_35px_2px_rgba(255,255,255,0.08),inset_0_1px_1px_0_rgba(255,255,255,0.22)]"
       >
         {/* Rounded clipping mask for interactive spotlight & ambient corner glow */}
         <div
@@ -231,11 +240,8 @@ function SkillCard({
         >
           {/* Enhanced Interactive Cursor Spotlight Glow */}
           <div
-            className="absolute inset-0 transition-opacity duration-300 pointer-events-none"
-            style={{
-              opacity: isHovered && isDesktop ? 1 : 0,
-              background: `radial-gradient(520px circle at ${mousePos.x}px ${mousePos.y}px, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.06) 30%, rgba(255,255,255,0.015) 60%, transparent 80%)`,
-            }}
+            ref={spotlightRef}
+            className="absolute inset-0 transition-opacity duration-300 pointer-events-none opacity-0"
           />
 
           {/* Top ambient corner highlight (enhanced glow) */}
@@ -244,10 +250,7 @@ function SkillCard({
 
         {/* Card Header & Content (Subtle 3D layer depth) */}
         <div
-          style={{
-            transform: isDesktop ? "translateZ(18px)" : "none",
-            transformStyle: "preserve-3d",
-          }}
+          className="lg:[transform:translateZ(18px)] lg:[transform-style:preserve-3d]"
         >
           <div className="flex items-center justify-between pb-4! mb-6! border-b border-white/[0.08]">
             <span className="font-mono text-xs text-[#666666] tracking-widest uppercase">
@@ -263,12 +266,9 @@ function SkillCard({
           </h3>
         </div>
 
-        {/* Card Skills Badges (Layered 3D depth, original pills hover effect fully preserved) */}
+        {/* Card Skills Badges (Layered 3D depth, original pills hover effect fully preserved without lag) */}
         <div
-          style={{
-            transform: isDesktop ? "translateZ(26px)" : "none",
-            transformStyle: "preserve-3d",
-          }}
+          className="lg:[transform:translateZ(26px)] lg:[transform-style:preserve-3d]"
         >
           <div className="flex items-center justify-between mb-3.5! border-t border-white/[0.06] pt-4!"></div>
 
@@ -276,7 +276,7 @@ function SkillCard({
             {cat.skills.map((skill) => (
               <span
                 key={skill}
-                className="relative px-4! py-2.5! text-[12px] sm:text-[14px]! font-mono uppercase tracking-wider text-white/90 rounded-full border border-white/10 border-t-white/30 bg-gradient-to-b from-white/[0.08] to-white/[0.02] backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_14px_rgba(0,0,0,0.5)] transition-all duration-300 hover:bg-white hover:text-black hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] active:scale-95 cursor-default select-none inline-flex items-center"
+                className="relative px-4! py-2.5! text-[12px] sm:text-[14px]! font-mono uppercase tracking-wider text-white/90 rounded-full border border-white/10 border-t-white/30 bg-gradient-to-b from-white/[0.08] to-white/[0.02] shadow-[inset_0_1px_1px_rgba(255,255,255,0.2),0_4px_14px_rgba(0,0,0,0.5)] transition-all duration-300 hover:bg-white hover:text-black hover:border-white hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] active:scale-95 cursor-default select-none inline-flex items-center"
               >
                 {skill}
               </span>
@@ -365,8 +365,8 @@ export function Skills() {
 
       {/* Radial soft lighting (GPU composite layer) */}
       <div
-        className="absolute top-1/2 left-1/2 w-[700px]! h-[350px]! bg-white/[0.015] rounded-full blur-[140px] pointer-events-none"
-        style={{ transform: "translate3d(-50%, -50%, 0)", willChange: "transform" }}
+        className="absolute top-1/2 left-1/2 w-[700px]! h-[350px]! bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.035),transparent_70%)] pointer-events-none"
+        style={{ transform: "translate3d(-50%, -50%, 0)" }}
       />
 
       <div className="max-w-[1400px] w-full relative z-10! flex flex-col">
