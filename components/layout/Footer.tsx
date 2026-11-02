@@ -108,7 +108,7 @@ export default function Footer() {
                 LinkedIn
               </a>
               <a
-                href="/Faizan_Resume.pdf"
+                href="/Faizan-CV.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-[#f5f5f5] transition-colors"
