@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
-import { gsap } from "@/lib/gsap";
+import { gsap, ScrollTrigger } from "@/lib/gsap";
 
 const SKILL_CATEGORIES = [
   {
@@ -289,120 +289,207 @@ function SkillCard({
 }
 
 export function Skills() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const stickyWrapperRef = useRef<HTMLDivElement>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const mobileTrackRef = useRef<HTMLDivElement>(null);
+  const [activeMobileIdx, setActiveMobileIdx] = useState(0);
 
   useEffect(() => {
-    const section = sectionRef.current;
+    const container = containerRef.current;
+    const stickyWrapper = stickyWrapperRef.current;
+    const mobileTrack = mobileTrackRef.current;
     const header = headerRef.current;
-    if (!section) return;
+    if (!container) return;
 
     const ctx = gsap.context(() => {
-      // Header entrance animation (hardware-accelerated GPU transform)
-      if (header) {
-        gsap.fromTo(
-          header,
-          { opacity: 0, y: 32 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.85,
-            ease: "power2.out",
-            force3D: true,
-            clearProps: "transform,opacity",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 82%",
-              toggleActions: "play none none none",
-              once: true,
-            },
-          },
-        );
-      }
+      const isMobile = window.innerWidth < 1024;
 
-      // 3 Cards staggered entrance animation (pure GPU transform, zero raster blur stalls)
-      const cards = cardsRef.current.filter(Boolean);
-      if (cards.length > 0) {
-        gsap.fromTo(
-          cards,
-          {
-            opacity: 0,
-            y: 60,
-            scale: 0.96,
-          },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.9,
-            stagger: 0.12,
-            ease: "power2.out",
-            force3D: true,
-            clearProps: "transform,opacity",
-            scrollTrigger: {
-              trigger: section,
-              start: "top 78%",
-              toggleActions: "play none none none",
-              once: true,
+      if (isMobile && stickyWrapper && mobileTrack) {
+        // Compute total scroll distance for horizontal translation
+        const getScrollDistance = () =>
+          mobileTrack.scrollWidth - window.innerWidth + 48; // 48px to allow generous right padding / reveal
+
+        // GSAP ScrollTrigger for pinned mobile horizontal scroll
+        gsap.to(mobileTrack, {
+          x: () => -getScrollDistance(),
+          ease: "none",
+          scrollTrigger: {
+            trigger: container,
+            pin: stickyWrapper,
+            start: "top top",
+            end: () => `+=${getScrollDistance() * 1.5}`,
+            scrub: 1,
+            anticipatePin: 1,
+            invalidateOnRefresh: true,
+            onUpdate: (self) => {
+              const progress = self.progress;
+              const idx = Math.min(
+                SKILL_CATEGORIES.length - 1,
+                Math.floor(progress * SKILL_CATEGORIES.length + 0.15)
+              );
+              setActiveMobileIdx(idx);
             },
           },
-        );
+        });
+      } else {
+        // Desktop animations (100% untouched original behaviour)
+        if (header) {
+          gsap.fromTo(
+            header,
+            { opacity: 0, y: 32 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.85,
+              ease: "power2.out",
+              force3D: true,
+              clearProps: "transform,opacity",
+              scrollTrigger: {
+                trigger: container,
+                start: "top 82%",
+                toggleActions: "play none none none",
+                once: true,
+              },
+            }
+          );
+        }
+
+        const cards = cardsRef.current.filter(Boolean);
+        if (cards.length > 0) {
+          gsap.fromTo(
+            cards,
+            {
+              opacity: 0,
+              y: 60,
+              scale: 0.96,
+            },
+            {
+              opacity: 1,
+              y: 0,
+              scale: 1,
+              duration: 0.9,
+              stagger: 0.12,
+              ease: "power2.out",
+              force3D: true,
+              clearProps: "transform,opacity",
+              scrollTrigger: {
+                trigger: container,
+                start: "top 78%",
+                toggleActions: "play none none none",
+                once: true,
+              },
+            }
+          );
+        }
       }
-    }, sectionRef);
+    }, containerRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
     <section
-      ref={sectionRef}
+      ref={containerRef}
       id="skills"
-      className="relative w-full bg-[#050505] text-[#f5f5f5] px-6! pt-28! pb-10! sm:py-28! md:px-12! md:py-36! lg:px-16! lg:py-55! overflow-hidden flex justify-center border-b border-[#111111]"
+      className="relative w-full bg-[#050505] text-[#f5f5f5] border-b border-[#111111]"
     >
-      {/* Ambient Background Grid */}
-      <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px]" />
-
-      {/* Radial soft lighting (GPU composite layer) */}
+      {/* 
+        Sticky Wrapper:
+        - Mobile: `h-screen sticky top-0 flex flex-col justify-center overflow-hidden py-6 px-6`
+        - Desktop: `static h-auto px-6 pt-28 pb-10 sm:py-28 md:px-12 md:py-36 lg:px-16 lg:py-55 overflow-hidden flex justify-center`
+      */}
       <div
-        className="absolute top-1/2 left-1/2 w-[700px]! h-[350px]! bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.035),transparent_70%)] pointer-events-none"
-        style={{ transform: "translate3d(-50%, -50%, 0)" }}
-      />
+        ref={stickyWrapperRef}
+        className="w-full relative flex flex-col justify-center lg:block overflow-hidden px-6! py-6! sm:px-10! sm:py-10! lg:px-16! lg:pt-28! lg:pb-55! min-h-screen lg:min-h-0"
+      >
+        {/* Ambient Background Grid */}
+        <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px]" />
 
-      <div className="max-w-[1400px] w-full relative z-10! flex flex-col">
-        {/* Section Header */}
+        {/* Radial soft lighting (GPU composite layer) */}
         <div
-          ref={headerRef}
-          className="flex flex-col items-start mb-12! sm:mb-16! md:mb-20!"
-        >
-          {/* <div className="flex items-center gap-2.5! mb-3.5!">
-            <span className="w-1.5! h-1.5! rounded-full bg-white/40 animate-pulse" />
-            <span className="text-[10px] sm:text-[11px] uppercase font-mono tracking-[0.28em] text-[#888888]">
-              TECHNICAL ARSENAL
-            </span>
-          </div> */}
+          className="absolute top-1/2 left-1/2 w-[700px]! h-[350px]! bg-[radial-gradient(ellipse_at_center,rgba(255,255,255,0.035),transparent_70%)] pointer-events-none"
+          style={{ transform: "translate3d(-50%, -50%, 0)" }}
+        />
 
-          <h2 className="font-display text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#f5f5f5] leading-[0.95] mb-4!">
-            SKILLS &amp; CAPABILITIES
-          </h2>
+        <div className="max-w-[1400px] w-full mx-auto relative z-10! flex flex-col">
+          {/* Section Header */}
+          <div
+            ref={headerRef}
+            className="flex flex-col items-start mb-6! sm:mb-10! lg:mb-20!"
+          >
+            {/* Mobile index badge */}
+            <div className="flex lg:hidden items-center justify-between w-full mb-2!">
+              <span className="font-mono text-[10px] uppercase tracking-[0.25em] text-[#888888] flex items-center gap-5">
+                {/* <span className="w-1.5 h-1.5 rounded-full bg-white/40 animate-pulse inline-block" /> */}
+                TECHNICAL ARSENAL [0{activeMobileIdx + 1} / 0{SKILL_CATEGORIES.length}]
+              </span>
+              {/* <span className="font-mono text-[9px] uppercase tracking-[0.2em] text-[#777777]">
+                {SKILL_CATEGORIES[activeMobileIdx].highlight}
+              </span> */}
+            </div>
 
-          <p className="max-w-xl text-xs sm:text-sm font-mono text-[#777777] leading-relaxed uppercase tracking-wider">
-            Modern technologies, frameworks &amp; developer tools I utilize to
-            craft production-grade digital products.
-          </p>
-        </div>
+            <h2 className="font-display text-2xl sm:text-4xl md:text-5xl lg:text-7xl font-black uppercase tracking-tight text-[#f5f5f5] leading-[0.95] mb-2! sm:mb-6!">
+              SKILLS &amp; CAPABILITIES
+            </h2>
 
-        {/* 3-Cards Responsive Grid */}
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6! sm:gap-8! lg:gap-8! items-stretch">
-          {SKILL_CATEGORIES.map((cat, idx) => (
-            <SkillCard
-              key={cat.id}
-              cat={cat}
-              cardRef={(el) => {
-                cardsRef.current[idx] = el;
-              }}
-            />
-          ))}
+            <p className="max-w-xl text-[11px] sm:text-xs md:text-sm font-mono text-[#777777] leading-relaxed uppercase tracking-wider line-clamp-2 sm:line-clamp-none">
+              Modern technologies, frameworks &amp; developer tools I utilize to
+              craft production-grade digital products.
+            </p>
+          </div>
+
+          {/* 
+            Desktop View: Original 3-column static grid, untouched.
+          */}
+          <div className="hidden lg:grid grid-cols-3 gap-8! items-stretch">
+            {SKILL_CATEGORIES.map((cat, idx) => (
+              <SkillCard
+                key={cat.id}
+                cat={cat}
+                cardRef={(el) => {
+                  cardsRef.current[idx] = el;
+                }}
+              />
+            ))}
+          </div>
+
+          {/* 
+            Mobile View: Sticky horizontal track driven by vertical scroll.
+          */}
+          <div className="lg:hidden w-full overflow-visible">
+            <div
+              ref={mobileTrackRef}
+              className="flex items-stretch gap-4 sm:gap-6 w-max will-change-transform"
+            >
+              {SKILL_CATEGORIES.map((cat) => (
+                <div
+                  key={cat.id}
+                  className="w-[84vw] max-w-[340px] sm:w-[380px] shrink-0"
+                >
+                  <SkillCard cat={cat} cardRef={() => {}} />
+                </div>
+              ))}
+            </div>
+
+            {/* Mobile Indicator Bar */}
+            <div className="flex items-center gap-2 pt-4! mt-2! border-t border-white/[0.06]">
+              {SKILL_CATEGORIES.map((cat, idx) => {
+                const isActive = activeMobileIdx === idx;
+                return (
+                  <div
+                    key={cat.id}
+                    className={`transition-all duration-300 rounded-full h-1 ${
+                      isActive
+                        ? "w-8 bg-white shadow-[0_0_8px_rgba(255,255,255,0.6)]"
+                        : "w-2 bg-white/20"
+                    }`}
+                  />
+                );
+              })}
+            </div>
+          </div>
         </div>
       </div>
     </section>

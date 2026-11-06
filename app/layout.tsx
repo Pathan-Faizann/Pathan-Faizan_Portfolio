@@ -14,6 +14,14 @@ export const metadata: Metadata = {
   title: "FAIZAN | Full Stack Developer Portfolio",
   description:
     "Luxury, minimal, editorial, and premium cinematic portfolio website.",
+  icons: {
+    icon: [
+      { url: "/pf-logo.png", type: "image/png" },
+    ],
+    apple: [
+      { url: "/pf-logo.png", type: "image/png" },
+    ],
+  },
 };
 
 export default function RootLayout({
