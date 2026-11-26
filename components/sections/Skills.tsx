@@ -393,7 +393,7 @@ export function Skills() {
     <section
       ref={containerRef}
       id="skills"
-      className="relative w-full bg-[#050505] text-[#f5f5f5] border-b border-[#111111]"
+      className="relative w-full bg-[#050505] text-[#f5f5f5] border-b border-[#111111] flex justify-center"
     >
       {/* 
         Sticky Wrapper:
@@ -402,7 +402,7 @@ export function Skills() {
       */}
       <div
         ref={stickyWrapperRef}
-        className="w-full relative flex flex-col justify-center lg:block overflow-hidden px-6! py-6! sm:px-10! sm:py-10! lg:px-16! lg:pt-28! lg:pb-55! min-h-screen lg:min-h-0"
+        className="w-full relative flex flex-col justify-center lg:flex lg:items-center overflow-hidden px-6! py-6! sm:px-10! sm:py-10! lg:px-16! lg:pt-55! lg:pb-55! min-h-screen lg:min-h-0"
       >
         {/* Ambient Background Grid */}
         <div className="absolute inset-0 pointer-events-none opacity-[0.03] bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:24px_24px]" />
